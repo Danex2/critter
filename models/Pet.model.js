@@ -1,24 +1,7 @@
 import mongoose from 'mongoose';
+import Schema from mongoose.Schema
 
-const UserPet = new mongoose.Schema({
-  username: {
-    type: String,
-    required: true
-  },
-  password: {
-    type: String,
-    required: true
-  },
-  contactInfo: {
-    phone: {
-      type: String,
-      required: true
-    },
-    email: {
-      type: String,
-      default: 'N/A'
-    }
-  },
+const PetSchema = new mongoose.Schema({
   pet: {
     name: {
       type: String,
@@ -47,8 +30,15 @@ const UserPet = new mongoose.Schema({
     additionalInfo: {
       type: String,
       default: 'N/A'
+    },
+    found: {
+        type: Boolean,
+        default: false
+    },
+    postedBy: {
+        type: Schema.Types.ObjectId, ref: 'user'
     }
   }
-});
+}, {timestamps: true});
 
-module.exports = User = mongoose.model('user', UserPet);
+module.exports = Pet = mongoose.model('pet', PetSchema);
