@@ -4,6 +4,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 const app = express();
 import auth from './controllers/auth.controller';
+import pet from './controllers/pet.controller';
 import { setMongoURI } from './utils/utils';
 
 const port = process.env.PORT || 4000;
@@ -18,7 +19,7 @@ app.use(
 );
 app.use(helmet());
 
-app.use(auth);
+app.use([auth, pet]);
 
 app.get('/', (req, res) => {
   return res.send('something');
@@ -27,7 +28,8 @@ app.get('/', (req, res) => {
 mongoose
   .connect(setMongoURI(process.env.NODE_ENV), {
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useFindAndModify: false
   })
   .then(() => {
     app.listen(port, () => console.log(`Server running on port: ${port}`));
