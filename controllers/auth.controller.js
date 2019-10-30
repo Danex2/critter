@@ -3,7 +3,6 @@ import User from '../models/User.model';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import fs from 'fs';
-import { setSecure } from '../utils/utils';
 const router = express.Router();
 
 router.post('/login', async (req, res) => {
@@ -27,16 +26,9 @@ router.post('/login', async (req, res) => {
         id: user.id
       },
       privateKey,
-      { expiresIn: '30m', algorithm: 'HS256' }
+      { expiresIn: '10m', algorithm: 'HS256' }
     );
-    return res
-      .cookie('token', token, {
-        maxAge: 1800000,
-        secure: setSecure(process.env.NODE_ENV),
-        sameSite: true
-      })
-      .status(200)
-      .json({ token });
+    return res.status(200).send({ token });
   } catch (e) {
     return res.status(500).json(e);
   }
