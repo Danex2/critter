@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import Schema from mongoose.Schema
+const Schema = mongoose.Schema;
 
 const UserSchema = new mongoose.Schema(
   {
@@ -19,13 +19,15 @@ const UserSchema = new mongoose.Schema(
       email: {
         type: String,
         default: 'N/A'
-      },
-      pet: {
-        type: Schema.Types.ObjectId, ref: 'pet'
       }
+    },
+    pet: {
+      type: Schema.Types.ObjectId,
+      ref: 'pet'
     }
   },
   { timestamps: true }
 );
 
-module.exports = User = mongoose.model('user', UserSchema);
+const User = mongoose.model('user', UserSchema);
+export default User;

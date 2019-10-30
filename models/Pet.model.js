@@ -1,44 +1,53 @@
 import mongoose from 'mongoose';
-import Schema from mongoose.Schema
+const Schema = mongoose.Schema;
 
-const PetSchema = new mongoose.Schema({
-  pet: {
-    name: {
-      type: String,
-      required: true
-    },
-    breed: {
-      type: String,
-      default: 'N/A'
-    },
-    lastSeen: {
-      date: {
-        type: Date,
+const PetSchema = new mongoose.Schema(
+  {
+    pet: {
+      name: {
+        type: String,
+        required: true
+      },
+      breed: {
+        type: String,
         default: 'N/A'
       },
-      location: {
-        lat: {
-          type: String,
-          required: true
+      image: {
+        type: String,
+        required: true
+      },
+      lastSeen: {
+        date: {
+          type: Date,
+          default: 'N/A'
         },
-        long: {
-          type: String,
-          required: true
+        location: {
+          lat: {
+            type: String,
+            required: true
+          },
+          long: {
+            type: String,
+            required: true
+          }
         }
-      }
-    },
-    additionalInfo: {
-      type: String,
-      default: 'N/A'
-    },
-    found: {
+      },
+      additionalInfo: {
+        type: String,
+        default: 'N/A'
+      },
+      found: {
         type: Boolean,
         default: false
-    },
-    postedBy: {
-        type: Schema.Types.ObjectId, ref: 'user'
+      },
+      postedBy: {
+        type: Schema.Types.ObjectId,
+        ref: 'user'
+      }
     }
-  }
-}, {timestamps: true});
+  },
+  { timestamps: true }
+);
 
-module.exports = Pet = mongoose.model('pet', PetSchema);
+const Pet = mongoose.model('pet', PetSchema);
+export default Pet;
