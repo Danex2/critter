@@ -1,11 +1,14 @@
 import express from 'express';
 import User from '../models/User.model';
 import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
+import fs from 'fs';
 const router = express.Router();
 
 router.post('/login', async (req, res) => {
   try {
     const { username, password } = req.body;
+    const privateKey = fs.readFileSync('./private.pem', 'utf8');
     const user = await User.findOne({ username });
     const checkPassword = await bcrypt.compare(password, user.password);
     if (!username || !password) {
@@ -13,12 +16,19 @@ router.post('/login', async (req, res) => {
         error: 'Missing username or password.'
       });
     }
-    if (checkPassword) {
-      return res.status(200).json(user);
+    if (!checkPassword) {
+      return res.status(400).json({
+        error: 'Invalid username or password.'
+      });
     }
-    return res.status(400).json({
-      error: 'Invalid username or password.'
-    });
+    const token = jwt.sign(
+      {
+        id: user.id
+      },
+      privateKey,
+      { expiresIn: '30m', algorithm: 'HS256' }
+    );
+    return res.status(200).json({ token });
   } catch (e) {
     return res.status(500).json(e);
   }
@@ -39,7 +49,7 @@ router.post('/register', async (req, res) => {
       });
     }
     const hashedPassword = bcrypt.hashSync(password, 8);
-    const registeredUser = await User.create({
+    await User.create({
       username,
       password: hashedPassword,
       contactInfo: {
@@ -47,9 +57,7 @@ router.post('/register', async (req, res) => {
         email
       }
     });
-    return res.status(201).json({
-      user: registeredUser
-    });
+    return res.status(201).send(true);
   } catch (e) {
     return res.status(500).json(e);
   }

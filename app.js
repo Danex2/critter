@@ -1,6 +1,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
+import helmet from 'helmet';
 const app = express();
 import auth from './controllers/auth.controller';
 
@@ -14,6 +15,7 @@ app.use(
     methods: ['GET', 'PUT', 'POST', 'DELETE']
   })
 );
+app.use(helmet());
 
 app.use(auth);
 
