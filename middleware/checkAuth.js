@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken';
 import fs from 'fs';
 
 const checkAuth = (req, res, next) => {
-  const token = req.headers['x-access-token'];
+  const token = req.cookies.token;
   const privateKey = fs.readFileSync('./private.pem', 'utf8');
   if (token) {
     jwt.verify(token, privateKey, (err, decoded) => {
@@ -10,10 +10,10 @@ const checkAuth = (req, res, next) => {
         return res.status(403).json({ error: 'You are not authorized.' });
       }
       req.data = decoded;
-      next();
+      return next();
     });
   } else {
-    res.status(403).json({ error: 'You are not authorized.' });
+    return res.status(403).json({ error: 'You are not authorized.' });
   }
 };
 
