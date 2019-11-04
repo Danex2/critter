@@ -3,7 +3,7 @@ import fs from 'fs';
 
 const checkAuth = (req, res, next) => {
   const token = req.headers.authorization.split(' ')[1];
-  if (typeof token !== 'undefined') {
+  if (token !== undefined) {
     const privateKey = fs.readFileSync('./private.pem', 'utf8');
     if (token) {
       jwt.verify(token, privateKey, { algorithms: 'HS256' }, (err, decoded) => {

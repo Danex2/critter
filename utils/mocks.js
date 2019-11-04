@@ -1,8 +1,8 @@
 const mockRequest = body => ({ body });
 const mockResponse = () => {
   const res = {};
-  res.json = () => res;
-  res.status = () => res;
+  res.json = jest.fn().mockReturnValue(res);
+  res.status = jest.fn().mockReturnValue(res);
   return res;
 };
 

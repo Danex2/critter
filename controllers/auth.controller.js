@@ -1,11 +1,10 @@
-import express from 'express';
 import User from '../models/User.model';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import { validateRegister } from '../utils/utils';
 import fs from 'fs';
-const router = express.Router();
 
-router.post('/login', async (req, res) => {
+const login = async (req, res) => {
   try {
     const { username, password } = req.body;
     const privateKey = fs.readFileSync('./private.pem', 'utf8');
@@ -32,11 +31,12 @@ router.post('/login', async (req, res) => {
   } catch (e) {
     return res.status(500).json(e);
   }
-});
+};
 
-router.post('/register', async (req, res) => {
+const register = async (req, res) => {
   try {
     const { username, password, phone, email } = req.body;
+    const { errors, isValid } = validateRegister(req.body);
     const user = await User.findOne({ username });
     if (user) {
       return res.status(400).json({
@@ -47,6 +47,10 @@ router.post('/register', async (req, res) => {
       return res.status(400).json({
         error: 'Missing some registration info.'
       });
+    }
+
+    if (!isValid) {
+      return res.status(400).json(errors);
     }
     const hashedPassword = bcrypt.hashSync(password, 8);
     await User.create({
@@ -61,6 +65,6 @@ router.post('/register', async (req, res) => {
   } catch (e) {
     return res.status(500).json(e);
   }
-});
+};
 
-export default router;
+export { login, register };

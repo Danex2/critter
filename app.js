@@ -3,8 +3,8 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 import helmet from 'helmet';
 const app = express();
-import auth from './controllers/auth.controller';
-import pet from './controllers/pet.controller';
+import auth from './routers/authRoutes';
+import pet from './routers/petRoutes';
 import { setMongoURI } from './utils/utils';
 
 const port = process.env.PORT || 4000;
