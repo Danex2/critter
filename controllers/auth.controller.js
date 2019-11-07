@@ -8,13 +8,13 @@ const login = async (req, res) => {
   try {
     const { username, password } = req.body;
     const privateKey = fs.readFileSync('./private.pem', 'utf8');
-    const user = await User.findOne({ username });
-    const checkPassword = await bcrypt.compare(password, user.password);
     if (!username || !password) {
       return res.status(400).json({
         error: 'Missing username or password.'
       });
     }
+    const user = await User.findOne({ username });
+    const checkPassword = await bcrypt.compare(password, user.password);
     if (!checkPassword) {
       return res.status(400).json({
         error: 'Invalid username or password.'
@@ -27,8 +27,9 @@ const login = async (req, res) => {
       privateKey,
       { expiresIn: '10m', algorithm: 'HS256' }
     );
-    return res.status(200).send({ token });
+    return res.status(200).json({ token });
   } catch (e) {
+    console.log(e);
     return res.status(500).json(e);
   }
 };

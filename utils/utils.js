@@ -1,5 +1,6 @@
 import dotenv from 'dotenv';
 import validator from 'validator';
+import mongoose from 'mongoose';
 
 dotenv.config();
 
@@ -33,4 +34,12 @@ export const validateRegister = userInfo => {
     errors,
     isValid: isEmpty(errors)
   };
+};
+
+export const connectMongo = url => {
+  return mongoose.connect(setMongoURI(process.env.NODE_ENV), {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false
+  });
 };
