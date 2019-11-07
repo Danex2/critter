@@ -14,6 +14,11 @@ const login = async (req, res) => {
       });
     }
     const user = await User.findOne({ username });
+    if (!user) {
+      return res.status(400).json({
+        error: 'No one with that username exists.'
+      });
+    }
     const checkPassword = await bcrypt.compare(password, user.password);
     if (!checkPassword) {
       return res.status(400).json({
