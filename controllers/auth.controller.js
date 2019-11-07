@@ -7,13 +7,12 @@ import fs from 'fs';
 const login = async (req, res) => {
   try {
     const { username, password } = req.body;
-    const privateKey = fs.readFileSync('./private.pem', 'utf8');
+    const user = await User.findOne({ username });
     if (!username || !password) {
       return res.status(400).json({
         error: 'Missing username or password.'
       });
     }
-    const user = await User.findOne({ username });
     if (!user) {
       return res.status(400).json({
         error: 'No one with that username exists.'
@@ -25,6 +24,7 @@ const login = async (req, res) => {
         error: 'Invalid username or password.'
       });
     }
+    const privateKey = fs.readFileSync('./private.pem', 'utf8');
     const token = jwt.sign(
       {
         id: user.id
