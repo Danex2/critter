@@ -22,12 +22,14 @@ beforeAll(async done => {
     username: 'Danex2',
     password: bcrypt.hashSync('password', 8),
     contactInfo: {
-      phone: '123-456-7890'
+      phone: '123-456-7890',
+      email: 'dane@gmail.com'
     }
   });
 });
 
 afterAll(async () => {
+  await User.deleteMany({});
   await mongoose.disconnect();
   await connection.stop();
 });
@@ -35,7 +37,7 @@ afterAll(async () => {
 describe('Testing the authentication routes', () => {
   describe('Testing the login route', () => {
     test('Login should return a 400 status code if the username or password is missing', async done => {
-      const req = mockRequest({ username: 'danex2' });
+      const req = mockRequest({ username: 'Danex2' });
       const res = mockResponse();
       await login(req, res);
       done();
@@ -74,6 +76,49 @@ describe('Testing the authentication routes', () => {
       done();
       expect(res.status).toHaveBeenCalledWith(200);
       expect(res.json).toHaveBeenCalledWith(expect.any(Object));
+    });
+  });
+  describe('testing the register route', () => {
+    test('Register should return a 400 status code if the user already exists', async done => {
+      const req = mockRequest({
+        username: 'Danex2',
+        password: 'password',
+        phone: '647-456-7890',
+        email: 'dane@gmail.com'
+      });
+      const res = mockResponse();
+      await register(req, res);
+      done();
+      expect(res.status).toHaveBeenCalledWith(400);
+      expect(res.json).toHaveBeenCalledWith({
+        error: 'Someone with that username already exists.'
+      });
+    });
+    test('Register should return a 400 status code if any registration info is missing', async done => {
+      const req = mockRequest({
+        username: 'Danex2',
+        password: 'password',
+        phone: '647-456-7890'
+      });
+      const res = mockResponse();
+      await register(req, res);
+      done();
+      expect(res.status).toHaveBeenCalledWith(400);
+      expect(res.json).toHaveBeenCalledWith({
+        error: 'Missing some registration info.'
+      });
+    });
+    test('Register should return a 201 status code if all info is correct', async done => {
+      const req = mockRequest({
+        username: 'Danex4',
+        password: 'password',
+        email: 'dane3@gmail.com',
+        phone: '647-456-7890'
+      });
+      const res = mockResponse();
+      await register(req, res);
+      done();
+      expect(res.status).toHaveBeenCalledWith(201);
     });
   });
 });

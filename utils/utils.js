@@ -18,6 +18,10 @@ export const setMongoURI = env =>
 
 export const validateRegister = userInfo => {
   const errors = {};
+  userInfo.username = userInfo.username || '';
+  userInfo.password = userInfo.password || '';
+  userInfo.email = userInfo.email || '';
+  userInfo.phone = userInfo.phone || '';
   if (!validator.isLength(userInfo.username, { min: 6, max: 10 })) {
     errors.username = 'Username must between 6 and 10 characters.';
   }

@@ -18,7 +18,7 @@ const login = async (req, res) => {
         error: 'No one with that username exists.'
       });
     }
-    const checkPassword = await bcrypt.compare(password, user.password);
+    const checkPassword = await bcrypt.compareSync(password, user.password);
     if (!checkPassword) {
       return res.status(400).json({
         error: 'Invalid username or password.'
@@ -34,7 +34,6 @@ const login = async (req, res) => {
     );
     return res.status(200).json({ token });
   } catch (e) {
-    console.log(e);
     return res.status(500).json(e);
   }
 };
@@ -42,26 +41,24 @@ const login = async (req, res) => {
 const register = async (req, res) => {
   try {
     const { username, password, phone, email } = req.body;
-    const { errors, isValid } = validateRegister(req.body);
+    if (!username || !password || !phone) {
+      return res.status(400).json({
+        error: 'Missing some registration info.'
+      });
+    }
     const user = await User.findOne({ username });
     if (user) {
       return res.status(400).json({
         error: 'Someone with that username already exists.'
       });
     }
-    if (!username || !password || !phone) {
-      return res.status(400).json({
-        error: 'Missing some registration info.'
-      });
-    }
-
+    /*const { errors, isValid } = validateRegister(req.body);
     if (!isValid) {
       return res.status(400).json(errors);
-    }
-    const hashedPassword = bcrypt.hashSync(password, 8);
+    }*/
     await User.create({
       username,
-      password: hashedPassword,
+      password,
       contactInfo: {
         phone,
         email
@@ -69,6 +66,7 @@ const register = async (req, res) => {
     });
     return res.status(201).send(true);
   } catch (e) {
+    console.log(e);
     return res.status(500).json(e);
   }
 };
