@@ -7,24 +7,24 @@ import fs from 'fs';
 const login = async (req, res) => {
   try {
     const { username, password } = req.body;
-    const user = await User.findOne({ username });
     if (!username || !password) {
       return res.status(400).json({
         error: 'Missing username or password.'
       });
     }
+    const user = await User.findOne({ username });
     if (!user) {
       return res.status(400).json({
         error: 'No one with that username exists.'
       });
     }
-    const checkPassword = await bcrypt.compareSync(password, user.password);
-    if (!checkPassword) {
+    const validPassword = bcrypt.compareSync(password, user.password);
+    if (!validPassword) {
       return res.status(400).json({
         error: 'Invalid username or password.'
       });
     }
-    const privateKey = fs.readFileSync('./private.pem', 'utf8');
+    const privateKey = await fs.readFile('./private.pem', 'utf8');
     const token = jwt.sign(
       {
         id: user.id
@@ -48,14 +48,14 @@ const register = async (req, res) => {
     }
     const user = await User.findOne({ username });
     if (user) {
-      return res.status(400).json({
+      return res.status(200).json({
         error: 'Someone with that username already exists.'
       });
     }
-    /*const { errors, isValid } = validateRegister(req.body);
+    const { errors, isValid } = validateRegister(req.body);
     if (!isValid) {
       return res.status(400).json(errors);
-    }*/
+    }
     await User.create({
       username,
       password,
