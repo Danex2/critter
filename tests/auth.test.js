@@ -1,7 +1,6 @@
 import app from '../app';
 import request from 'supertest';
 import mongoose from 'mongoose';
-import bcrypt from 'bcryptjs';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import User from '../models/User.model';
 const req = request(app);
