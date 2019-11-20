@@ -24,13 +24,13 @@ const login = async (req, res) => {
         error: 'Invalid username or password.'
       });
     }
-    const privateKey = await fs.readFile('./private.pem', 'utf8');
+    const privateKey = fs.readFileSync('./private.pem', 'utf8');
     const token = jwt.sign(
       {
         id: user.id
       },
       privateKey,
-      { expiresIn: '10m', algorithm: 'HS256' }
+      { expiresIn: '15m', algorithm: 'HS256' }
     );
     return res.status(200).json({ token });
   } catch (e) {
@@ -48,7 +48,7 @@ const register = async (req, res) => {
     }
     const user = await User.findOne({ username });
     if (user) {
-      return res.status(200).json({
+      return res.status(400).json({
         error: 'Someone with that username already exists.'
       });
     }
@@ -56,9 +56,10 @@ const register = async (req, res) => {
     if (!isValid) {
       return res.status(400).json(errors);
     }
+    const hashedPassword = await bcrypt.hash(password, 8);
     await User.create({
       username,
-      password,
+      password: hashedPassword,
       contactInfo: {
         phone,
         email

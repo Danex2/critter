@@ -4,10 +4,11 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "watch": "cross-env NODE_ENV=development nodemon --exec babel-node app.js",
-    "build": "babel . --ignore node_modules,.babelrc,yarn.lock,tests --out-dir dist",
-    "run": "node dist/app.js",
-    "run:test": "jest test "
+    "watch": "cross-env NODE_ENV=development nodemon --exec babel-node index.js",
+    "build": "babel . --ignore node_modules,.babelrc,yarn.lock,tests,dev.env --out-dir dist",
+    "run:prod": "node dist/app.js",
+    "run:test": "jest test",
+    "run:cov": "jest --coverage"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -31,6 +32,7 @@
     "core-js": "^3.3.6",
     "cross-env": "^6.0.3",
     "jest": "^24.9.0",
+    "mongodb-memory-server": "^6.0.1",
     "nodemon": "^1.19.4",
     "regenerator-runtime": "^0.13.3",
     "supertest": "^4.0.2"

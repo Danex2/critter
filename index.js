@@ -5,14 +5,11 @@ import mongoose from 'mongoose';
 const port = process.env.PORT || 4000;
 
 mongoose
-  .connect(
-    setMongoURI(process.env.NODE_ENV) || 'mongodb://localhost:27017/testdb',
-    {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      useFindAndModify: false
-    }
-  )
+  .connect(setMongoURI(process.env.NODE_ENV), {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false
+  })
   .then(() => {
     app.listen(port, () => console.log(`Server running on port: ${port}`));
   })
