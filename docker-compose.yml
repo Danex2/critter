@@ -6,7 +6,10 @@ services:
       - '4000:4000'
     volumes:
       - .:/usr/src/app
-    links:
+    depends_on:
       - mongo
+    restart: always
   mongo:
     image: mongo
+    ports:
+      - '27017:27017'
