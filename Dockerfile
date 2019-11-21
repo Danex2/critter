@@ -10,4 +10,4 @@ COPY . .
 
 EXPOSE 4000
 
-CMD ["npm", "run", "watch"]
+CMD ["npm", "run", "docker"]

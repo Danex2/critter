@@ -47,6 +47,11 @@ const pet =
   async (req, res) => {
     try {
       const { name, breed, image, date, lat, long, info, found } = req.body;
+      if (!name || !image) {
+        return res
+          .status(400)
+          .json({ error: 'The name and breed are required.' });
+      }
       const user = await User.findById({ _id: req.data.id });
       if (user.pet) {
         return res.status(400).json({

@@ -7,7 +7,8 @@
     "watch": "cross-env NODE_ENV=development nodemon --exec babel-node index.js",
     "build": "babel . --ignore node_modules,.babelrc,yarn.lock,tests,dev.env --out-dir dist",
     "prod": "node dist/app.js",
-    "run:test": "jest test",
+    "docker": "cross-env NODE_ENV=docker nodemon --exec babel-node index.js",
+    "run:test": "jest --verbose test",
     "run:cov": "jest --coverage"
   },
   "dependencies": {

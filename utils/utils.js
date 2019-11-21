@@ -13,6 +13,8 @@ const isEmpty = value =>
 export const setMongoURI = env =>
   env === 'development'
     ? 'mongodb://localhost:27017/findmypetdb'
+    : env === 'docker'
+    ? 'mongodb://mongo:27017/findmypetdb'
     : process.env.MONGO_URI;
 
 export const validateRegister = userInfo => {

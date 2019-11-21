@@ -5,7 +5,7 @@ import mongoose from 'mongoose';
 const port = process.env.PORT || 4000;
 
 mongoose
-  .connect('mongodb://mongo:27017/findmypetdb', {
+  .connect(setMongoURI(process.env.NODE_ENV), {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false
