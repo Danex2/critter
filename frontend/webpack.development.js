@@ -8,6 +8,14 @@ module.exports = merge(baseConfig, {
   devServer: {
     contentBase: path.join(__dirname, 'public')
   },
+  module: {
+    rules: [
+      {
+        test: /\.css$/i,
+        use: ['style-loader', 'css-loader', 'postcss-loader']
+      }
+    ]
+  },
   performance: {
     hints: 'warning'
   }

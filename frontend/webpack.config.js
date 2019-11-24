@@ -1,5 +1,6 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const webpack = require('webpack');
 
 module.exports = {
   entry: './src/index.js',
@@ -14,6 +15,7 @@ module.exports = {
   },
   plugins: [
     new CleanWebpackPlugin(),
+    new webpack.ProgressPlugin(),
     new HtmlWebpackPlugin({
       title: 'React App',
       inject: false,
