@@ -6,12 +6,13 @@ module.exports = merge(baseConfig, {
   devtool: 'cheap-module-eval-source-map',
   mode: 'development',
   devServer: {
-    contentBase: path.join(__dirname, 'public')
+    contentBase: path.join(__dirname, 'dist')
   },
   module: {
     rules: [
       {
-        test: /\.css$/i,
+        test: /\.css$/,
+        exclude: /node_modules/,
         use: ['style-loader', 'css-loader', 'postcss-loader']
       }
     ]
