@@ -35,10 +35,6 @@ const PetSchema = new mongoose.Schema(
       type: String,
       default: 'N/A'
     },
-    found: {
-      type: Boolean,
-      default: false
-    },
     postedBy: {
       type: Schema.Types.ObjectId,
       ref: 'user'

@@ -1,9 +1,5 @@
 @tailwind base;
 
-#app {
-  height: 100vh;
-}
-
 @tailwind components;
 
 @tailwind utilities;
