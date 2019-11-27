@@ -1,7 +1,7 @@
 import React from 'react';
 
 const PetViewItem = () => (
-  <div className='rounded-lg overflow-hidden sm:min-w-3/5 md:w-2/5 lg:w-1/4 shadow-lg sm:mr-0 mb-4 md:mr-4'>
+  <div className='rounded-lg overflow-hidden md:w-5/12 lg:w-3/12 shadow-lg sm:ml-0 mb-4 md:ml-4'>
     <img
       className='w-full object-cover '
       src='https://boygeniusreport.files.wordpress.com/2016/11/puppy-dog.jpg?quality=98&strip=all&w=782'
@@ -13,19 +13,22 @@ const PetViewItem = () => (
       </h3>
       <hr />
       <div className='px-5 py-4'>
-        <p className='sm:text-xs lg:text-md uppercase text-gray-600 font-semibold'>
+        <p className='uppercase text-gray-800 font-semibold text-sm'>
           Breed: Terrier
         </p>
-        <p className='sm:text-xs lg:text-md uppercase text-gray-600 font-semibold'>
+        <p className='uppercase text-gray-800 font-semibold text-sm'>
           Last seen: 11/20/19
         </p>
         <div className='flex items-end'>
-          <button className='bg-blue-900 w-1/2 p-1 mt-2 rounded hover:bg-blue-700 text-white block focus:text-white focus:outline-none'>
+          <button className='bg-blue-900 w-full p-1 mt-2 rounded hover:bg-blue-700 text-white block focus:text-white focus:outline-none'>
             More Info
           </button>
-          <span className='text-xs ml-auto'>Updated: 10/7/2019</span>
         </div>
       </div>
+      <hr />
+      <span className='text-xs ml-auto py-3 inline-block font-bold text-gray-600 text-center w-full'>
+        Updated: 10/7/2019
+      </span>
     </div>
   </div>
 );
