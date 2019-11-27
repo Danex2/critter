@@ -6,7 +6,8 @@ module.exports = merge(baseConfig, {
   devtool: 'cheap-module-eval-source-map',
   mode: 'development',
   devServer: {
-    contentBase: path.join(__dirname, 'dist')
+    contentBase: path.join(__dirname, 'dist'),
+    historyApiFallback: true
   },
   module: {
     rules: [
