@@ -7,13 +7,14 @@ import { Router } from '@reach/router';
 
 function App() {
   return (
-    <div className='h-full flex flex-col bg-gray-300 antialiased text-gray-900'>
+    <>
       <Navbar />
       <Router>
         <PetsView path='/pets' />
+        <Form path='/form' />
       </Router>
       <Footer />
-    </div>
+    </>
   );
 }
 
