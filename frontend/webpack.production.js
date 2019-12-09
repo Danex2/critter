@@ -7,8 +7,10 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = merge(baseConfig, {
   optimization: {
+    minimize: true,
     minimizer: [
       new TerserJSPlugin({
+        exclude: /node_modules/,
         terserOptions: {
           output: {
             comments: false

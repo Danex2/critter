@@ -3,6 +3,7 @@ import Navbar from './components/Navbar';
 import PetsView from './components/PetsView';
 import Footer from './components/Footer';
 import Form from './components/Form';
+import NotFound from './components/NotFound';
 import { Router } from '@reach/router';
 
 function App() {
@@ -10,8 +11,9 @@ function App() {
     <>
       <Navbar />
       <Router>
-        <PetsView path='/pets' />
+        <PetsView path='/' />
         <Form path='/form' />
+        <NotFound default />
       </Router>
       <Footer />
     </>
