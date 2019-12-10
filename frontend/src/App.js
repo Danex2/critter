@@ -1,10 +1,13 @@
 import React from 'react';
-import Navbar from './components/Navbar';
+import Navbar from './components/Layout/Navbar';
 import PetsView from './components/PetsView';
-import Footer from './components/Footer';
+import Footer from './components/Layout/Footer';
 import Form from './components/Form';
 import NotFound from './components/NotFound';
+import About from './components/About';
+import Register from './components/Authentication/Register';
 import { Router } from '@reach/router';
+import SignIn from './components/Authentication/SignIn';
 
 function App() {
   return (
@@ -13,6 +16,9 @@ function App() {
       <Router>
         <PetsView path='/' />
         <Form path='/form' />
+        <About path='/about' />
+        <SignIn path='/login' />
+        <Register path='register' />
         <NotFound default />
       </Router>
       <Footer />
