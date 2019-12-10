@@ -1,10 +1,13 @@
 import React from 'react';
+import { Link } from '@reach/router';
 
 const Navbar = () => (
   <header className='bg-blue-900 sm:flex sm:justify-between sm:items-center sm:px-4 sm:py-3 items-center'>
     <div className='flex justify-between items-center px-4 py-3 sm:p-0'>
       <div className='px-4 py-3 sm:p-0'>
-        <h2 className='font-semibold text-white'>Find My Pet</h2>
+        <Link to='/' className='font-semibold text-white'>
+          Find My Pet
+        </Link>
       </div>
       <div className='sm:hidden'>
         <button

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from '@reach/router';
 
 const PetViewItem = ({ image, name, breed, lastSeen, updatedAt, id }) => (
   <div className='rounded-lg overflow-hidden md:w-5/12 lg:w-3/12 shadow-lg sm:ml-0 mb-4 md:ml-4 border-4 border-blue-700'>
@@ -16,12 +17,12 @@ const PetViewItem = ({ image, name, breed, lastSeen, updatedAt, id }) => (
           Last seen: {lastSeen}
         </p>
         <div className='flex items-end'>
-          <a
-            href={`/pet/${id}`}
+          <Link
+            to={`/pet/${id}`}
             className='bg-blue-900 w-full p-1 mt-2 rounded hover:bg-blue-700 text-white block text-center focus:text-white focus:outline-none'
           >
             More Info
-          </a>
+          </Link>
         </div>
       </div>
       <hr />
