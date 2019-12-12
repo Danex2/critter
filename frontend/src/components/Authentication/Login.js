@@ -5,14 +5,14 @@ import Button from '../Button';
 import Container from '../Container';
 import useForm from 'react-hook-form';
 
-function Register() {
+function Login() {
   const { register, handleSubmit } = useForm();
   const onSubmit = data => console.log(data);
   return (
     <Container>
       <Form submit={handleSubmit(onSubmit)}>
         <h2 className='text-center mb-3 font-semibold text-blue-900 text-xl'>
-          Register
+          Login
         </h2>
         <FormInput
           name='username'
@@ -28,24 +28,10 @@ function Register() {
           inputRef={register}
           placeholder='Password'
         />
-        <FormInput
-          name='email'
-          label='E-mail'
-          type='email'
-          inputRef={register}
-          placeholder='E-mail'
-        />
-        <FormInput
-          name='phone'
-          label='Phone Number'
-          type='tel'
-          inputRef={register}
-          placeholder='Phone Number'
-        />
-        <Button type='submit' name='Register' />
+        <Button type='submit' name='Log in' />
       </Form>
     </Container>
   );
 }
 
-export default Register;
+export default Login;

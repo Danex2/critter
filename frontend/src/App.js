@@ -7,7 +7,7 @@ import NotFound from './components/NotFound';
 import About from './components/About';
 import Register from './components/Authentication/Register';
 import { Router } from '@reach/router';
-import SignIn from './components/Authentication/SignIn';
+import Login from './components/Authentication/Login';
 
 function App() {
   return (
@@ -17,7 +17,7 @@ function App() {
         <PetsView path='/' />
         <Form path='/form' />
         <About path='/about' />
-        <SignIn path='/login' />
+        <Login path='/login' />
         <Register path='register' />
         <NotFound default />
       </Router>

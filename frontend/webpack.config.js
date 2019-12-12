@@ -17,7 +17,7 @@ module.exports = {
     new CleanWebpackPlugin(),
     new webpack.ProgressPlugin(),
     new HtmlWebpackPlugin({
-      title: 'React App',
+      title: 'Find My Pet - Reconnecting owners with lost pets.',
       inject: false,
       template: require('html-webpack-template'),
       appMountId: 'app',
