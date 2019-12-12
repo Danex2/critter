@@ -1,11 +1,16 @@
 import React from 'react';
 
-function FormInput({ name, label, inputRef, type, placeholder }) {
+function FormInput({ name, label, inputRef, type, placeholder, optionalText }) {
   return (
     <>
-      <label htmlFor={name}>{label}</label>
+      <label className='text-gray-900' htmlFor={name}>
+        {label}
+        {optionalText ? (
+          <small className='text-gray-900'> - {optionalText}</small>
+        ) : null}
+      </label>
       <input
-        className='rounded px-3 py-2 mb-3 focus:outline-none border-blue-300 border'
+        className='rounded px-3 py-2  mb-3 focus:outline-none border-blue-300 border'
         type={type}
         name={name}
         ref={inputRef}

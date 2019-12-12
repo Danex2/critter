@@ -35,7 +35,7 @@ const Navbar = () => (
         className='block mt-1 text-white px-2 py-1 hover:bg-blue-800 rounded sm:ml-2 sm:mt-0'
         href='#'
       >
-        Sign In
+        Login
       </Link>
       <Link
         to='/register'
