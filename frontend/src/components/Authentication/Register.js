@@ -7,6 +7,9 @@ import Container from '../Container';
 import useForm from 'react-hook-form';
 
 function Register() {
+  React.useEffect(() => {
+    document.title = 'Find My Pet - Register';
+  }, []);
   const { register, handleSubmit, errors } = useForm();
   const onSubmit = data => console.log(data);
 

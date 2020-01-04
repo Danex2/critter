@@ -2,6 +2,9 @@ import React from 'react';
 import { Link } from '@reach/router';
 
 function About() {
+  React.useEffect(() => {
+    document.title = 'Find My Pet - About';
+  }, []);
   return (
     <div className='h-full flex justify-center items-center flex-col'>
       <div className='w-2/3 lg:w-1/2 text-sm md:text-lg'>
