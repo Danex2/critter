@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import Form from '../Form';
 import FormInput from '../FormInput';
 import Button from '../Button';
@@ -14,15 +15,16 @@ function Register() {
   }, []);
   const { register, handleSubmit, errors } = useForm();
   const onSubmit = data => {
-    fetch('http://localhost:4000/register', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    })
-      .then(data => data.json())
-      .then(res => setError(res));
+    const { username, password, email, phone } = data;
+    axios
+      .post('http://localhost:4000/register', {
+        username,
+        password,
+        email,
+        phone
+      })
+      .then(res => console.log(res))
+      .catch(e => setError(e.response.data));
   };
 
   return (

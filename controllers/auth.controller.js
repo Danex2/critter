@@ -67,7 +67,6 @@ const register = async (req, res) => {
     });
     return res.status(201).send(true);
   } catch (e) {
-    console.log(e);
     return res.status(500).json(e);
   }
 };
