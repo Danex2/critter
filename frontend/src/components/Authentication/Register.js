@@ -7,11 +7,23 @@ import Container from '../Container';
 import useForm from 'react-hook-form';
 
 function Register() {
+  const [error, setError] = React.useState('');
+
   React.useEffect(() => {
     document.title = 'Find My Pet - Register';
   }, []);
   const { register, handleSubmit, errors } = useForm();
-  const onSubmit = data => console.log(data);
+  const onSubmit = data => {
+    fetch('http://localhost:4000/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+      .then(data => data.json())
+      .then(res => setError(res));
+  };
 
   return (
     <Container>
@@ -27,6 +39,7 @@ function Register() {
           placeholder='Username'
           optionalText='Must be between 6 to 10 characters.'
         />
+        <Error error={error.error} />
         <Error error={errors.username} />
         <FormInput
           name='password'
@@ -36,6 +49,7 @@ function Register() {
           placeholder='Password'
           optionalText='Must be between 7 to 20 characters.'
         />
+        <Error error={error.password} />
         <Error error={errors.password} />
         <FormInput
           name='email'
@@ -52,6 +66,7 @@ function Register() {
           inputRef={register({ required: 'Phone number must not be empty.' })}
           placeholder='Phone Number'
         />
+        <Error error={error.phone} />
         <Error error={errors.phone} />
         <Button type='submit' name='Register' />
       </Form>

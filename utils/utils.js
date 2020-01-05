@@ -29,7 +29,10 @@ export const validateRegister = userInfo => {
   if (!validator.isLength(userInfo.password, { min: 7, max: 20 })) {
     errors.password = 'Password must be between 7 and 20 characters.';
   }
-  if (!validator.isEmail(userInfo.email)) {
+  if (
+    !validator.isEmpty(userInfo.email) &&
+    !validator.isEmail(userInfo.email)
+  ) {
     errors.email = 'Invalid email.';
   }
   if (!validator.isMobilePhone(userInfo.phone)) {
