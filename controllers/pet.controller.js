@@ -46,7 +46,7 @@ const pet =
   (checkAuth,
   async (req, res) => {
     try {
-      const { name, breed, image, date, lat, long, info, found } = req.body;
+      const { name, breed, image, lastSeen, address, info } = req.body;
       if (!name || !image) {
         return res
           .status(400)
@@ -63,15 +63,9 @@ const pet =
         name,
         breed,
         image,
-        lastSeen: {
-          date,
-          location: {
-            lat,
-            long
-          }
-        },
+        lastSeen,
+        address,
         additionalInfo: info,
-        found,
         postedBy: user.id
       });
       await User.findByIdAndUpdate({ _id: req.data.id }, { pet: pet.id });
@@ -85,10 +79,10 @@ const updatePet =
   (checkAuth,
   async (req, res) => {
     try {
-      const { found, image, info, email, phone } = req.body;
+      const { image, info, email, phone } = req.body;
       await Pet.findOneAndUpdate(
         { postedBy: req.data.id },
-        { found, image, info },
+        { image, info },
         { new: true }
       );
 

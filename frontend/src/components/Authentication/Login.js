@@ -5,6 +5,7 @@ import FormInput from '../FormInput';
 import Button from '../Button';
 import Container from '../Container';
 import Error from '../Error';
+import { navigate } from '@reach/router';
 import useForm from 'react-hook-form';
 
 function Login() {
@@ -21,6 +22,7 @@ function Login() {
         password
       })
       .then(res => localStorage.setItem('token', res.data.token))
+      .then(() => navigate('/'))
       .catch(e => setError(e.response.data));
   };
   return (

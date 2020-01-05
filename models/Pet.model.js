@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import geocoder from '../utils/geocoder';
 const Schema = mongoose.Schema;
 
 const PetSchema = new mongoose.Schema(
@@ -16,20 +17,23 @@ const PetSchema = new mongoose.Schema(
       required: true
     },
     lastSeen: {
-      date: {
-        type: Date,
-        default: Date.now
+      type: String,
+      required: true
+    },
+    address: {
+      type: String,
+      required: true
+    },
+    location: {
+      type: {
+        type: String, // Don't do `{ location: { type: String } }`
+        enum: ['Point'] // 'location.type' must be 'Point'
       },
-      location: {
-        lat: {
-          type: String,
-          required: true
-        },
-        long: {
-          type: String,
-          required: true
-        }
-      }
+      coordinates: {
+        type: [Number],
+        index: '2dsphere'
+      },
+      fullAddress: String
     },
     additionalInfo: {
       type: String,
@@ -44,4 +48,9 @@ const PetSchema = new mongoose.Schema(
 );
 
 const Pet = mongoose.model('pet', PetSchema);
+PetSchema.pre('save', async function(next) {
+  const loc = await geocoder.geocode(this.address);
+  console.log(loc);
+});
+
 export default Pet;
