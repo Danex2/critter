@@ -49,7 +49,7 @@ const PetSchema = new mongoose.Schema(
 
 PetSchema.pre('save', async function(next) {
   const loc = await geocoder.geocode(this.address);
-  console.log(loc);
+  console.log(loc.filter(code => code.countryCode === 'CA'));
 });
 const Pet = mongoose.model('pet', PetSchema);
 

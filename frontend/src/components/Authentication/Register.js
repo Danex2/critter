@@ -9,7 +9,6 @@ import useForm from 'react-hook-form';
 
 function Register() {
   const [error, setError] = React.useState('');
-
   React.useEffect(() => {
     document.title = 'Find My Pet - Register';
   }, []);
