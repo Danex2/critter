@@ -8,5 +8,13 @@
         }
       }
     ]
+  ],
+  "plugins": [
+    [
+      "babel-plugin-dotenv",
+      {
+        "replacedModuleName": "babel-dotenv"
+      }
+    ]
   ]
 }

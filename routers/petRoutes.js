@@ -12,7 +12,7 @@ const router = express.Router();
 
 router.route('/pets').get(pets);
 router.route('/pet/:id').get(petId);
-router.route('/mypet').get(myPet);
+router.route('/mypet').get(checkAuth, myPet);
 router
   .route('/pet')
   .post(checkAuth, pet)

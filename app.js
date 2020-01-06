@@ -1,11 +1,10 @@
 import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
-import dotenv from 'dotenv';
-const app = express();
 import auth from './routers/authRoutes';
 import pet from './routers/petRoutes';
-dotenv.config({ path: './dev.env' });
+
+const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

@@ -47,10 +47,10 @@ const PetSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const Pet = mongoose.model('pet', PetSchema);
 PetSchema.pre('save', async function(next) {
   const loc = await geocoder.geocode(this.address);
   console.log(loc);
 });
+const Pet = mongoose.model('pet', PetSchema);
 
 export default Pet;
