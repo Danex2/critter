@@ -8,29 +8,27 @@ import About from './components/About';
 import Register from './components/Authentication/Register';
 import { Router } from '@reach/router';
 import Login from './components/Authentication/Login';
-import AuthContext from '../src/context/authContext';
-import jwt from 'jwt-decode';
 import AuthenticatedRoute from '../src/components/AuthenticatedRoute';
+import AuthProvider from './context/AuthProvider';
+import axios from 'axios';
 
-let decoded_token;
-if (localStorage.token) {
-  decoded_token = jwt(localStorage.token);
-}
+const token = localStorage.getItem('token');
+axios.defaults.headers.common['authorization'] = `Bearer ${token}`;
 
 function App() {
   return (
-    <AuthContext.Provider value={decoded_token}>
+    <AuthProvider>
       <Navbar />
       <Router>
         <PetsView path='/' />
         <Form path='/form' />
-        <AuthenticatedRoute as={About} path='/about' />
+        <About path='/about' />
         <Login path='/login' />
-        <Register path='register' />
+        <Register path='/register' />
         <NotFound default />
       </Router>
       <Footer />
-    </AuthContext.Provider>
+    </AuthProvider>
   );
 }
 

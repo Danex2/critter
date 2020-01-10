@@ -30,9 +30,13 @@ const login = async (req, res) => {
         id: user.id
       },
       privateKey,
-      { expiresIn: '15m', algorithm: 'HS256' }
+      { expiresIn: '10m', algorithm: 'HS256' }
     );
-    return res.status(200).json({ token });
+    const refreshToken = jwt.sign({ id: user.id }, process.env.refreshSecret, {
+      expiresIn: '24h',
+      algorithm: 'HS256'
+    });
+    return res.status(200).json({ token, refreshToken });
   } catch (e) {
     return res.status(500).json(e);
   }

@@ -17,7 +17,7 @@ const checkAuth = (req, res, next) => {
       return res.status(403).json({ error: 'You are not authorized.' });
     }
   } else {
-    return res.status(500).json({
+    return res.status(400).json({
       error: 'Invalid token.'
     });
   }

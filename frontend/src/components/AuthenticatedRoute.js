@@ -1,10 +1,9 @@
 import React from 'react';
-import AuthContext from '../context/authContext';
-import { navigate } from '@reach/router';
+import PetsView from '../components/PetsView';
+import checkAuth from '../utils/checkAuth';
 
 function AuthenticatedRoute({ as: Component, ...rest }) {
-  const auth = React.useContext(AuthContext);
-  return auth ? <Component {...rest} /> : navigate('/');
+  return checkAuth() ? <Component {...rest} /> : <PetsView />;
 }
 
 export default AuthenticatedRoute;
