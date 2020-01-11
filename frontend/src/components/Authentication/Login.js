@@ -7,11 +7,12 @@ import Container from '../Container';
 import Error from '../Error';
 import { navigate } from '@reach/router';
 import useForm from 'react-hook-form';
+import useError from '../../utils/useError';
 import { AuthContext } from '../../context/AuthProvider';
 
 function Login() {
-  const [error, setError] = React.useState('');
-  const { dispatch, state } = React.useContext(AuthContext);
+  const { dispatch } = React.useContext(AuthContext);
+  const { error, setError } = useError();
   const { register, handleSubmit } = useForm();
   React.useEffect(() => {
     document.title = 'Find My Pet - Login';
@@ -25,8 +26,7 @@ function Login() {
       })
       .then(res => {
         window.localStorage.setItem('token', res.data.token);
-        window.localStorage.setItem('refreshToken', res.data.refreshToken);
-        return dispatch({ type: 'LOGIN_USER' });
+        dispatch({ type: 'LOGIN_USER' });
       })
       .then(() => navigate('/'))
       .catch(e => setError(e.response.data));

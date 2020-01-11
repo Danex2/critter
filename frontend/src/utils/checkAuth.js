@@ -2,13 +2,12 @@ import decode from 'jwt-decode';
 
 export default function checkAuth() {
   const token = localStorage.getItem('token');
-  const refresh = localStorage.getItem('refreshToken');
-  if (!token || !refresh) {
+  if (!token) {
     return false;
   }
 
   try {
-    const decoded = decode(refresh);
+    const decoded = decode(token);
     if (decoded.exp < Date.now() / 1000) {
       return false;
     }

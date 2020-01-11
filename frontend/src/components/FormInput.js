@@ -10,7 +10,7 @@ function FormInput({ name, label, inputRef, type, placeholder, optionalText }) {
         ) : null}
       </label>
       <input
-        className='rounded px-3 py-2  mb-3 focus:outline-none border-blue-300 border'
+        className='rounded w-64 sm:w-full px-3 py-2  mb-3 focus:outline-none border-blue-300 border'
         type={type}
         name={name}
         ref={inputRef}

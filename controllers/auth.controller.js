@@ -32,11 +32,7 @@ const login = async (req, res) => {
       privateKey,
       { expiresIn: '10m', algorithm: 'HS256' }
     );
-    const refreshToken = jwt.sign({ id: user.id }, process.env.refreshSecret, {
-      expiresIn: '24h',
-      algorithm: 'HS256'
-    });
-    return res.status(200).json({ token, refreshToken });
+    return res.status(200).json({ token });
   } catch (e) {
     return res.status(500).json(e);
   }

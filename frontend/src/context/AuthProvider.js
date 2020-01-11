@@ -13,6 +13,7 @@ function authReducer(state, action) {
       };
     case 'LOGOUT_USER':
       return {
+        ...state,
         loggedIn: !state.loggedIn
       };
     default:

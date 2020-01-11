@@ -11,6 +11,7 @@ import Login from './components/Authentication/Login';
 import AuthenticatedRoute from '../src/components/AuthenticatedRoute';
 import AuthProvider from './context/AuthProvider';
 import axios from 'axios';
+import NewPost from './components/NewPost';
 
 const token = localStorage.getItem('token');
 axios.defaults.headers.common['authorization'] = `Bearer ${token}`;
@@ -21,6 +22,7 @@ function App() {
       <Navbar />
       <Router>
         <PetsView path='/' />
+        <AuthenticatedRoute as={NewPost} path='/new' />
         <Form path='/form' />
         <About path='/about' />
         <Login path='/login' />

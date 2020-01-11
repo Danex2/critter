@@ -5,10 +5,11 @@ import FormInput from '../FormInput';
 import Button from '../Button';
 import Error from '../Error';
 import Container from '../Container';
+import useError from '../../utils/useError';
 import useForm from 'react-hook-form';
 
 function Register() {
-  const [error, setError] = React.useState('');
+  const { error, setError } = useError();
   React.useEffect(() => {
     document.title = 'Find My Pet - Register';
   }, []);
@@ -22,7 +23,6 @@ function Register() {
         email,
         phone
       })
-      .then(res => console.log(res))
       .catch(e => setError(e.response.data));
   };
 
