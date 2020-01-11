@@ -4,6 +4,7 @@ import { AuthContext } from '../../context/AuthProvider';
 
 const Navbar = () => {
   const { state, dispatch } = React.useContext(AuthContext);
+  const [hidden, setHidden] = React.useState(true);
   return (
     <header className='bg-blue-900 sm:flex sm:justify-between sm:items-center sm:px-4 sm:py-3 items-center'>
       <div className='flex justify-between items-center px-4 py-3 sm:p-0'>
@@ -16,6 +17,7 @@ const Navbar = () => {
           <button
             type='button'
             className='text-blue-300 block focus:text-blue-300 focus:outline-none hover:text-blue-300'
+            onClick={() => setHidden(!hidden)}
           >
             <svg className='h-6 w-6 fill-current'>
               <path
@@ -26,7 +28,9 @@ const Navbar = () => {
           </button>
         </div>
       </div>
-      <nav className='sm:flex sm:p-0 px-2 pt-2 pb-4 hidden'>
+      <nav
+        className={`sm:flex sm:p-0 px-2 pt-2 pb-4 ${hidden ? 'hidden' : ''}`}
+      >
         {state.loggedIn ? (
           <>
             <Link
