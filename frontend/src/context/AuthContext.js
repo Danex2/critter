@@ -1,17 +1,21 @@
-import React from 'react';
+import React from "react";
+
+export const AuthContext = React.createContext(null);
+
+const token = localStorage.getItem("token");
 
 const initState = {
-  loggedIn: false
+  loggedIn: token ? token : false
 };
 
-function authReducer(state, action) {
+const authReducer = (state, action) => {
   switch (action.type) {
-    case 'LOGIN_USER':
+    case "USER_LOGIN":
       return {
         ...state,
         loggedIn: !state.loggedIn
       };
-    case 'LOGOUT_USER':
+    case "USER_LOGOUT":
       return {
         ...state,
         loggedIn: !state.loggedIn
@@ -19,10 +23,9 @@ function authReducer(state, action) {
     default:
       return state;
   }
-}
+};
 
-export const AuthContext = React.createContext();
-function AuthProvider({ children }) {
+export function AuthProvider({ children }) {
   const [state, dispatch] = React.useReducer(authReducer, initState);
   return (
     <AuthContext.Provider value={{ state, dispatch }}>
@@ -30,5 +33,3 @@ function AuthProvider({ children }) {
     </AuthContext.Provider>
   );
 }
-
-export default AuthProvider;

@@ -18,7 +18,7 @@ const login = async (req, res) => {
         error: 'No one with that username exists.'
       });
     }
-    const validPassword = bcrypt.compareSync(password, user.password);
+     const validPassword = await bcrypt.compare(password, user.password);
     if (!validPassword) {
       return res.status(400).json({
         error: 'Invalid username or password.'
@@ -56,10 +56,10 @@ const register = async (req, res) => {
     if (!isValid) {
       return res.status(400).json(errors);
     }
-    const hashedPassword = await bcrypt.hash(password, 8);
+    // const hashedPassword = await bcrypt.hash(password, 8);
     await User.create({
       username,
-      password: hashedPassword,
+      password,
       contactInfo: {
         phone,
         email

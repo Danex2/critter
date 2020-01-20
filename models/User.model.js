@@ -30,8 +30,8 @@ const UserSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-UserSchema.pre('save', function(next) {
-  this.password = bcrypt.hashSync(this.password, 8);
+UserSchema.pre('save', async function(next) {
+  this.password = await bcrypt.hash(this.password, 8);
   next();
 });
 
