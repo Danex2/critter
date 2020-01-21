@@ -1,9 +1,9 @@
-import User from '../models/User.model';
-import Pet from '../models/Pet.model';
+import User from "../models/User.model";
+import Pet from "../models/Pet.model";
 
 const pets = async (req, res) => {
   try {
-    const pets = await Pet.find({}, '_id name image createdAt breed');
+    const pets = await Pet.find({}, "_id name image createdAt breed");
     return res.status(200).json({ pets });
   } catch (e) {
     return res.status(500).json(e);
@@ -14,8 +14,8 @@ const petId = async (req, res) => {
   try {
     const petId = req.params.id;
     const pet = await Pet.findById({ _id: petId }).populate(
-      'postedBy',
-      'contactInfo.email contactInfo.phone username'
+      "postedBy",
+      "contactInfo.email contactInfo.phone username"
     );
     return res.status(200).json({ pet });
   } catch (e) {
@@ -30,8 +30,8 @@ const myPet = async (req, res) => {
       { username: 0, password: 0, createdAt: 0, updatedAt: 0, _id: 0 }
     ).populate('pet');*/
     const data = await Pet.findOne({ postedBy: req.data.id }).populate(
-      'postedBy',
-      'contactInfo.email contactInfo.phone username'
+      "postedBy",
+      "contactInfo.email contactInfo.phone username"
     );
     return res.status(200).json({ data });
   } catch (e) {
@@ -41,24 +41,24 @@ const myPet = async (req, res) => {
 
 const pet = async (req, res) => {
   try {
-    const { name, breed, image, lastSeen, address, info } = req.body;
-    if (!name || !image) {
+    const { name, breed, lastSeen, address, info } = req.body;
+    if (!name || !req.file.url) {
       return res
         .status(400)
-        .json({ error: 'The name and breed are required.' });
+        .json({ error: "The name and image are required." });
     }
 
     const user = await User.findById({ _id: req.data.id });
     if (user.pet) {
       return res.status(400).json({
         message:
-          'It seems you already have an active missing pet ad, if you want to update the ad please do so in the settings.'
+          "It seems you already have an active missing pet ad, if you want to update the ad please do so in the settings."
       });
     }
     const pet = await Pet.create({
       name,
       breed,
-      image,
+      image: req.file.url,
       lastSeen,
       address,
       additionalInfo: info,
@@ -67,7 +67,6 @@ const pet = async (req, res) => {
     await User.findByIdAndUpdate({ _id: req.data.id }, { pet: pet.id });
     return res.status(201).json({ pet });
   } catch (e) {
-    console.log(e);
     return res.status(500).json(e);
   }
 };
@@ -92,7 +91,7 @@ const updatePet = async (req, res) => {
       { new: true }
     );
     return res.status(200).json({
-      message: 'Ad successfully updated.'
+      message: "Ad successfully updated."
     });
   } catch (e) {
     return res.status(500).json(e);
@@ -102,9 +101,9 @@ const updatePet = async (req, res) => {
 const deletePet = async (req, res) => {
   try {
     await Pet.findOneAndDelete({ postedBy: req.data.id });
-    await User.findOneAndUpdate({ _id: req.data.id }, { $unset: { pet: '' } });
+    await User.findOneAndUpdate({ _id: req.data.id }, { $unset: { pet: "" } });
     return res.status(200).json({
-      message: 'Ad deleted.'
+      message: "Ad deleted."
     });
   } catch (e) {
     return res.status(500).json(e);
