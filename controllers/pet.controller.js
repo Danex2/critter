@@ -67,6 +67,7 @@ const pet = async (req, res) => {
     await User.findByIdAndUpdate({ _id: req.data.id }, { pet: pet.id });
     return res.status(201).json({ pet });
   } catch (e) {
+    console.log(e);
     return res.status(500).json(e);
   }
 };
