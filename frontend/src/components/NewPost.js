@@ -3,27 +3,51 @@ import Container from "./Container";
 import Form from "./Form";
 import FormInput from "./FormInput";
 import useForm from "react-hook-form";
-import axios from "axios";
 import Error from "./Error";
 import useError from "./../utils/useError";
 import Button from "./Button";
-
-const onSubmit = data => {
-  const { name, breed, image, lastSeen, address, info } = data;
-};
+import { navigate } from "@reach/router";
+import { getToken } from "../utils/getToken";
 
 function NewPost() {
-  const { register, handleSubmit } = useForm();
   const { error, setError } = useError();
+  const { register, handleSubmit } = useForm();
   React.useEffect(() => {
     document.title = "Find My Pet - New Ad";
   }, []);
+  const onSubmit = data => {
+    const { name, breed, image, lastSeen, address, info } = data;
+    let dog = new FormData();
+    dog.append("name", name);
+    dog.append("breed", breed);
+    dog.append("image", image[0]);
+    dog.append("info", info);
+    dog.append("lastSeen", lastSeen);
+    dog.append("address", address);
+    /* for some reason axios doesn't send formdata properly?? */
+    fetch("http://localhost:4000/pet", {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${getToken()}`
+      },
+      body: dog
+    })
+      .then(res => res.json())
+      .then(res => {
+        if (res) {
+          setError(res);
+        } else {
+          navigate("/");
+        }
+      });
+  };
   return (
     <Container>
       <Form submit={handleSubmit(onSubmit)}>
         <h2 className="text-center mb-3 font-semibold text-blue-900 text-xl">
           Post a new ad
         </h2>
+        <Error error={error.error} />
         <FormInput
           name="name"
           label="Name"
@@ -38,14 +62,9 @@ function NewPost() {
           inputRef={register}
           placeholder="Pet breed"
         />
+        <FormInput name="image" label="Image" type="file" inputRef={register} />
         <FormInput
-          name="image"
-          label="Pet image"
-          type="file"
-          inputRef={register}
-        />
-        <FormInput
-          name="date"
+          name="lastSeen"
           label="Last Seen"
           type="date"
           inputRef={register}

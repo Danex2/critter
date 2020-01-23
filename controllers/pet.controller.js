@@ -42,23 +42,24 @@ const myPet = async (req, res) => {
 const pet = async (req, res) => {
   try {
     const { name, breed, lastSeen, address, info } = req.body;
-    if (!name || !req.file.url) {
+    /*if (!name) {
       return res
         .status(400)
         .json({ error: "The name and image are required." });
-    }
+    }*/
 
     const user = await User.findById({ _id: req.data.id });
     if (user.pet) {
       return res.status(400).json({
-        message:
-          "It seems you already have an active missing pet ad, if you want to update the ad please do so in the settings."
+        error:
+          "It seems you already have an active missing pet ad, if you want to update the ad please do so in My Account."
       });
     }
+    console.log(req);
     const pet = await Pet.create({
       name,
       breed,
-      image: req.file.url,
+      image: req.file.secure_url,
       lastSeen,
       address,
       additionalInfo: info,

@@ -10,6 +10,7 @@ import {
 import cloudinary from "cloudinary";
 import multer from "multer";
 import cloudinaryStorage from "multer-storage-cloudinary";
+import checkAuth from "../middleware/checkAuth";
 
 cloudinary.config({
   cloud_name: "dda1jyofd",
@@ -24,8 +25,6 @@ const storage = cloudinaryStorage({
 });
 
 const parser = multer({ storage });
-
-import checkAuth from "../middleware/checkAuth";
 const router = express.Router();
 
 router.route("/pets").get(pets);

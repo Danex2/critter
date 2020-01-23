@@ -12,8 +12,9 @@ import AuthenticatedRoute from "../src/components/AuthenticatedRoute";
 import axios from "axios";
 import NewPost from "./components/NewPost";
 import { AuthProvider } from "./context/AuthContext";
+import { getToken } from "./utils/getToken";
 
-const token = localStorage.getItem("token");
+const token = getToken();
 axios.defaults.headers.common["authorization"] = `Bearer ${token}`;
 
 function App() {
