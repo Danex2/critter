@@ -34,12 +34,6 @@ const Navbar = () => {
         {state.loggedIn ? (
           <>
             <Link
-              to="/about"
-              className="block text-white px-2 py-1 hover:bg-blue-800 rounded"
-            >
-              About
-            </Link>
-            <Link
               to="/new"
               className="block mt-1 text-white px-2 py-1 hover:bg-blue-800 rounded sm:ml-2 sm:mt-0"
             >

@@ -1,54 +1,31 @@
-import React from 'react';
-import PetViewItem from './PetViewItem';
+import React from "react";
+import axios from "axios";
+import PetViewItem from "./PetViewItem";
 
 const PetsView = () => {
   React.useEffect(() => {
-    document.title = 'Find My Pet - Search';
+    document.title = "Find My Pet - Search";
+  }, []);
+  const [pets, setPets] = React.useState([]);
+  React.useEffect(() => {
+    axios
+      .get("http://localhost:4000/pets")
+      .then(pets => setPets(pets.data.pets));
   }, []);
   return (
-    <div className='flex flex-wrap p-4 flex justify-center'>
-      <PetViewItem
-        name='Rex'
-        breed='Terrier'
-        lastSeen='11/22/19'
-        updatedAt='11/05/2019'
-        image='https://boygeniusreport.files.wordpress.com/2016/11/puppy-dog.jpg?quality=98&strip=all&w=782'
-      />
-      <PetViewItem
-        name='Rex'
-        breed='Terrier'
-        lastSeen='11/22/19'
-        updatedAt='11/05/2019'
-        image='https://boygeniusreport.files.wordpress.com/2016/11/puppy-dog.jpg?quality=98&strip=all&w=782'
-      />
-      <PetViewItem
-        name='Rex'
-        breed='Terrier'
-        lastSeen='11/22/19'
-        updatedAt='11/05/2019'
-        image='https://boygeniusreport.files.wordpress.com/2016/11/puppy-dog.jpg?quality=98&strip=all&w=782'
-      />
-      <PetViewItem
-        name='Rex'
-        breed='Terrier'
-        lastSeen='11/22/19'
-        updatedAt='11/05/2019'
-        image='https://boygeniusreport.files.wordpress.com/2016/11/puppy-dog.jpg?quality=98&strip=all&w=782'
-      />
-      <PetViewItem
-        name='Rex'
-        breed='Terrier'
-        lastSeen='11/22/19'
-        updatedAt='11/05/2019'
-        image='https://boygeniusreport.files.wordpress.com/2016/11/puppy-dog.jpg?quality=98&strip=all&w=782'
-      />
-      <PetViewItem
-        name='Rex'
-        breed='Terrier'
-        lastSeen='11/22/19'
-        updatedAt='11/05/2019'
-        image='https://boygeniusreport.files.wordpress.com/2016/11/puppy-dog.jpg?quality=98&strip=all&w=782'
-      />
+    <div className="flex flex-wrap p-4 flex justify-center">
+      {pets.map(pet => {
+        return (
+          <PetViewItem
+            key={pet._id}
+            name={pet.name}
+            breed={pet.breed}
+            lastSeen={pet.lastSeen}
+            updatedAt={pet.updatedAt}
+            image={pet.image}
+          />
+        );
+      })}
     </div>
   );
 };

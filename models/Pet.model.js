@@ -13,7 +13,8 @@ const PetSchema = new mongoose.Schema(
       default: "N/A"
     },
     image: {
-      type: String
+      type: String,
+      required: true
     },
     lastSeen: {
       type: String,

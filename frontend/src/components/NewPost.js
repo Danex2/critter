@@ -32,14 +32,14 @@ function NewPost() {
       },
       body: dog
     })
-      .then(res => res.json())
       .then(res => {
-        if (res) {
-          setError(res);
-        } else {
-          navigate("/");
+        if (!res.ok) {
+          throw res;
         }
-      });
+        return res.json();
+      })
+      .then(() => navigate("/"))
+      .catch(e => console.log(e));
   };
   return (
     <Container>

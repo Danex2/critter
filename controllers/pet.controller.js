@@ -3,7 +3,7 @@ import Pet from "../models/Pet.model";
 
 const pets = async (req, res) => {
   try {
-    const pets = await Pet.find({}, "_id name image createdAt breed");
+    const pets = await Pet.find({}, "_id name image updatedAt breed lastSeen");
     return res.status(200).json({ pets });
   } catch (e) {
     return res.status(500).json(e);
@@ -42,11 +42,11 @@ const myPet = async (req, res) => {
 const pet = async (req, res) => {
   try {
     const { name, breed, lastSeen, address, info } = req.body;
-    /*if (!name) {
+    if (!name || !req.file) {
       return res
         .status(400)
         .json({ error: "The name and image are required." });
-    }*/
+    }
 
     const user = await User.findById({ _id: req.data.id });
     if (user.pet) {
@@ -55,7 +55,6 @@ const pet = async (req, res) => {
           "It seems you already have an active missing pet ad, if you want to update the ad please do so in My Account."
       });
     }
-    console.log(req);
     const pet = await Pet.create({
       name,
       breed,
