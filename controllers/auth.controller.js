@@ -2,7 +2,6 @@ import User from "../models/User.model";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { validateRegister } from "../utils/utils";
-import fs from "fs";
 
 const login = async (req, res) => {
   try {
@@ -24,12 +23,11 @@ const login = async (req, res) => {
         error: "Invalid username or password."
       });
     }
-    const privateKey = fs.readFileSync("./private.pem", "utf8");
     const token = jwt.sign(
       {
         id: user.id
       },
-      privateKey,
+      process.env.TOKEN_SECRET,
       { expiresIn: "10m", algorithm: "HS256" }
     );
     return res.status(200).json({ token });

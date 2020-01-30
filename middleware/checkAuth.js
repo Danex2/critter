@@ -1,24 +1,27 @@
-import jwt from 'jsonwebtoken';
-import fs from 'fs';
+import jwt from "jsonwebtoken";
 
 const checkAuth = (req, res, next) => {
-  const token = req.headers.authorization.split(' ')[1];
+  const token = req.headers.authorization.split(" ")[1];
   if (token !== undefined) {
-    const privateKey = fs.readFileSync('./private.pem', 'utf8');
     if (token) {
-      jwt.verify(token, privateKey, { algorithms: 'HS256' }, (err, decoded) => {
-        if (err) {
-          return res.status(403).json({ error: 'You are not authorized.' });
+      jwt.verify(
+        token,
+        process.env.TOKEN_SECRET,
+        { algorithms: "HS256" },
+        (err, decoded) => {
+          if (err) {
+            return res.status(403).json({ error: "You are not authorized." });
+          }
+          req.data = decoded;
+          return next();
         }
-        req.data = decoded;
-        return next();
-      });
+      );
     } else {
-      return res.status(403).json({ error: 'You are not authorized.' });
+      return res.status(403).json({ error: "You are not authorized." });
     }
   } else {
     return res.status(400).json({
-      error: 'Invalid token.'
+      error: "Invalid token."
     });
   }
 };

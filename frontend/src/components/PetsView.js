@@ -13,19 +13,23 @@ const PetsView = () => {
       .then(pets => setPets(pets.data.pets));
   }, []);
   return (
-    <div className="flex flex-wrap p-4 flex justify-center">
-      {pets.map(pet => {
-        return (
-          <PetViewItem
-            key={pet._id}
-            name={pet.name}
-            breed={pet.breed}
-            lastSeen={pet.lastSeen}
-            updatedAt={pet.updatedAt}
-            image={pet.image}
-          />
-        );
-      })}
+    <div className='flex flex-wrap p-4 flex justify-center'>
+      {pets ? (
+        pets.map(pet => {
+          return (
+            <PetViewItem
+              key={pet._id}
+              name={pet.name}
+              breed={pet.breed}
+              lastSeen={pet.lastSeen}
+              updatedAt={pet.updatedAt}
+              image={pet.image}
+            />
+          );
+        })
+      ) : (
+        <h1>No active ads.</h1>
+      )}
     </div>
   );
 };
