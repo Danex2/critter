@@ -40,6 +40,8 @@ PetSchema.pre('save', async function(next) {
   const locations = await geocoder.geocode(this.address);
   const canadianProvinces = locations.filter(code => code.countryCode === 'CA');
   this.address = canadianProvinces[0].formattedAddress;
+  const resizedImage = this.image.split('/upload/');
+  this.image = `https://res.cloudinary.com/dda1jyofd/image/upload/w_650,h_400/${resizedImage[1]}`;
   next();
 });
 const Pet = mongoose.model('pet', PetSchema);

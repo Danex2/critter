@@ -1,4 +1,4 @@
-import express from "express";
+import express from 'express';
 import {
   pet,
   petId,
@@ -6,33 +6,33 @@ import {
   updatePet,
   deletePet,
   myPet
-} from "../controllers/pet.controller";
-import cloudinary from "cloudinary";
-import multer from "multer";
-import cloudinaryStorage from "multer-storage-cloudinary";
-import checkAuth from "../middleware/checkAuth";
+} from '../controllers/pet.controller';
+import cloudinary from 'cloudinary';
+import multer from 'multer';
+import cloudinaryStorage from 'multer-storage-cloudinary';
+import checkAuth from '../middleware/checkAuth';
 
 cloudinary.config({
-  cloud_name: "dda1jyofd",
+  cloud_name: 'dda1jyofd',
   api_key: process.env.CLOUDINARY_API_KEY,
   api_secret: process.env.CLOUDINARY_SECRET
 });
 
 const storage = cloudinaryStorage({
   cloudinary,
-  folder: "dogs",
-  allowedFormats: ["jpg", "png"]
+  folder: 'dogs',
+  allowedFormats: ['jpg', 'png']
 });
 
 const parser = multer({ storage });
 const router = express.Router();
 
-router.route("/pets").get(pets);
-router.route("/pet/:id").get(petId);
-router.route("/mypet").get(checkAuth, myPet);
+router.route('/pets').get(pets);
+router.route('/pet/:id').get(petId);
+router.route('/mypet').get(checkAuth, myPet);
 router
-  .route("/pet")
-  .post(checkAuth, parser.single("image"), pet)
+  .route('/pet')
+  .post(checkAuth, parser.single('image'), pet)
   .put(checkAuth, updatePet)
   .delete(checkAuth, deletePet);
 
