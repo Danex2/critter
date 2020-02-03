@@ -1,9 +1,9 @@
-import React from "react";
-import { Link } from "@reach/router";
+import React from 'react';
+import { Link } from '@reach/router';
 
 const PetViewItem = ({ image, name, breed, lastSeen, updatedAt, id }) => (
-  <div className='rounded-lg overflow-hidden md:w-5/12 lg:w-3/12 shadow-lg sm:ml-0 mb-4 md:ml-4 border-4 border-blue-700'>
-    <img className='w-full object-cover ' src={image} alt='Lost pet' />
+  <div className='rounded-lg overflow-hidden md:w-5/12 lg:w-3/12 shadow-lg sm:ml-0 mb-4 md:ml-4 border-4 border-blue-700 flex flex-col'>
+    <img src={image} alt='Lost pet' />
     <div className='bg-white'>
       <h3 className='font-semibold uppercase text-lg text-center py-1'>
         {name}

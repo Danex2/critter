@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { Link } from '@reach/router';
+import Container from './Container';
 
 const Pet = ({ id }) => {
   const [petInfo, setPetInfo] = React.useState({});
@@ -11,8 +12,8 @@ const Pet = ({ id }) => {
       .then(data => setPetInfo(data.data.pet));
   }, []);
   return (
-    <div className='h-full flex justify-center items-center'>
-      <div className='rounded-lg overflow-hidden md:w-5/12 lg:w-3/12 shadow-lg sm:ml-0 mb-4 mt-4 md:ml-4 border-4 border-blue-700'>
+    <Container>
+      <div className='rounded-lg overflow-hidden md:w-6/12 lg:w-4/12 shadow-lg sm:ml-0 mb-4 mt-4 md:ml-4 border-4 border-blue-700 p-5'>
         <img
           className='w-full object-cover'
           src={petInfo.image}
@@ -77,7 +78,7 @@ const Pet = ({ id }) => {
           </span>
         </div>
       </div>
-    </div>
+    </Container>
   );
 };
 
