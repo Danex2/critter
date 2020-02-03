@@ -1,15 +1,15 @@
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");
-const webpack = require("webpack");
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const webpack = require('webpack');
 
 module.exports = {
-  entry: "./src/index.js",
+  entry: './src/index.js',
   module: {
     rules: [
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        loader: "babel-loader"
+        loader: 'babel-loader'
       }
     ]
   },
@@ -17,18 +17,20 @@ module.exports = {
     new CleanWebpackPlugin(),
     new webpack.ProgressPlugin(),
     new HtmlWebpackPlugin({
-      title: "Find My Pet - Reconnecting owners with lost pets.",
+      title: 'Find My Pet - Reconnecting owners with lost pets.',
       inject: false,
-      template: require("html-webpack-template"),
-      appMountId: "app",
+      template: require('html-webpack-template'),
+      appMountId: 'app',
       mobile: true,
-      lang: "en-US",
+      lang: 'en-US',
+      links: ['https://api.tiles.mapbox.com/mapbox-gl-js/v1.7.0/mapbox-gl.css'],
       meta: [
         {
-          name: "description",
-          content: "A tool to help owners reunite with their pets."
+          name: 'description',
+          content: 'A tool to help owners reunite with their pets.'
         }
       ]
-    })
+    }),
+    new webpack.EnvironmentPlugin({ ...process.env })
   ]
 };

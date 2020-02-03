@@ -1,9 +1,9 @@
-import User from "../models/User.model";
-import Pet from "../models/Pet.model";
+import User from '../models/User.model';
+import Pet from '../models/Pet.model';
 
 const pets = async (req, res) => {
   try {
-    const pets = await Pet.find({}, "_id name image updatedAt breed lastSeen");
+    const pets = await Pet.find({}, '_id name image updatedAt breed lastSeen');
     return res.status(200).json({ pets });
   } catch (e) {
     return res.status(500).json(e);
@@ -14,8 +14,8 @@ const petId = async (req, res) => {
   try {
     const petId = req.params.id;
     const pet = await Pet.findById({ _id: petId }).populate(
-      "postedBy",
-      "contactInfo.email contactInfo.phone username"
+      'postedBy',
+      'contactInfo.email contactInfo.phone username'
     );
     return res.status(200).json({ pet });
   } catch (e) {
@@ -30,8 +30,8 @@ const myPet = async (req, res) => {
       { username: 0, password: 0, createdAt: 0, updatedAt: 0, _id: 0 }
     ).populate('pet');*/
     const data = await Pet.findOne({ postedBy: req.data.id }).populate(
-      "postedBy",
-      "contactInfo.email contactInfo.phone username"
+      'postedBy',
+      'contactInfo.email contactInfo.phone username'
     );
     return res.status(200).json({ data });
   } catch (e) {
@@ -45,14 +45,14 @@ const pet = async (req, res) => {
     if (!name || !req.file) {
       return res
         .status(400)
-        .json({ error: "The name and image are required." });
+        .json({ error: 'The name and image are required.' });
     }
 
     const user = await User.findById({ _id: req.data.id });
     if (user.pet) {
       return res.status(400).json({
         error:
-          "It seems you already have an active missing pet ad, if you want to update the ad please do so in My Account."
+          'It seems you already have an active missing pet ad, if you want to update the ad please do so in My Account.'
       });
     }
     const pet = await Pet.create({
@@ -74,10 +74,10 @@ const pet = async (req, res) => {
 
 const updatePet = async (req, res) => {
   try {
-    const { image, info, email, phone } = req.body;
+    const { address, info, email, phone } = req.body;
     await Pet.findOneAndUpdate(
       { postedBy: req.data.id },
-      { image, info },
+      { additionalInfo: info },
       { new: true }
     );
 
@@ -86,13 +86,14 @@ const updatePet = async (req, res) => {
       {
         contactInfo: {
           email,
-          phone
+          phone,
+          address
         }
       },
       { new: true }
     );
     return res.status(200).json({
-      message: "Ad successfully updated."
+      message: 'Ad successfully updated.'
     });
   } catch (e) {
     return res.status(500).json(e);
@@ -102,9 +103,9 @@ const updatePet = async (req, res) => {
 const deletePet = async (req, res) => {
   try {
     await Pet.findOneAndDelete({ postedBy: req.data.id });
-    await User.findOneAndUpdate({ _id: req.data.id }, { $unset: { pet: "" } });
+    await User.findOneAndUpdate({ _id: req.data.id }, { $unset: { pet: '' } });
     return res.status(200).json({
-      message: "Ad deleted."
+      message: 'Ad deleted.'
     });
   } catch (e) {
     return res.status(500).json(e);

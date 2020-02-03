@@ -1,6 +1,14 @@
 import React from 'react';
 
-function FormInput({ name, label, inputRef, type, placeholder, optionalText }) {
+function FormInput({
+  name,
+  label,
+  inputRef,
+  type,
+  placeholder,
+  optionalText,
+  value
+}) {
   return (
     <>
       <label className='text-gray-900' htmlFor={name}>
@@ -15,6 +23,7 @@ function FormInput({ name, label, inputRef, type, placeholder, optionalText }) {
         name={name}
         ref={inputRef}
         placeholder={placeholder}
+        defaultValue={value}
       />
     </>
   );

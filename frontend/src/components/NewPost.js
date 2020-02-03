@@ -26,7 +26,11 @@ function NewPost() {
     dog.append('lastSeen', lastSeen);
     dog.append('address', address);
     axios
-      .post('http://localhost:4000/pet', dog)
+      .post('http://localhost:4000/pet', dog, {
+        headers: {
+          Authorization: `Bearer ${getToken()}`
+        }
+      })
       .then(() => navigate('/'))
       .catch(e => setError(e.response.data));
   };

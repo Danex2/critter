@@ -1,5 +1,5 @@
-import mongoose from "mongoose";
-import geocoder from "../utils/geocoder";
+import mongoose from 'mongoose';
+import geocoder from '../utils/geocoder';
 const Schema = mongoose.Schema;
 
 const PetSchema = new mongoose.Schema(
@@ -10,7 +10,7 @@ const PetSchema = new mongoose.Schema(
     },
     breed: {
       type: String,
-      default: "N/A"
+      default: 'N/A'
     },
     image: {
       type: String,
@@ -18,46 +18,30 @@ const PetSchema = new mongoose.Schema(
     },
     lastSeen: {
       type: String,
-      default: "N/A"
+      default: 'N/A'
     },
     address: {
       type: String,
       required: true
     },
-    location: {
-      type: {
-        type: String, // Don't do `{ location: { type: String } }`
-        enum: ["Point"] // 'location.type' must be 'Point'
-      },
-      coordinates: {
-        type: [Number],
-        index: "2dsphere"
-      },
-      fullAddress: String
-    },
     additionalInfo: {
       type: String,
-      default: "N/A"
+      default: 'N/A'
     },
     postedBy: {
       type: Schema.Types.ObjectId,
-      ref: "user"
+      ref: 'user'
     }
   },
   { timestamps: true }
 );
 
-PetSchema.pre("save", async function(next) {
+PetSchema.pre('save', async function(next) {
   const locations = await geocoder.geocode(this.address);
-  const canadianProvinces = locations.filter(code => code.countryCode === "CA");
-  this.location = {
-    type: "Point",
-    coordinates: [canadianProvinces[0].latitude, canadianProvinces[0].latitude],
-    fullAddress: canadianProvinces[0].formattedAddress
-  };
-  this.address = undefined;
+  const canadianProvinces = locations.filter(code => code.countryCode === 'CA');
+  this.address = canadianProvinces[0].formattedAddress;
   next();
 });
-const Pet = mongoose.model("pet", PetSchema);
+const Pet = mongoose.model('pet', PetSchema);
 
 export default Pet;
