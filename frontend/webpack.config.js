@@ -23,7 +23,6 @@ module.exports = {
       appMountId: 'app',
       mobile: true,
       lang: 'en-US',
-      links: ['https://api.tiles.mapbox.com/mapbox-gl-js/v1.7.0/mapbox-gl.css'],
       meta: [
         {
           name: 'description',

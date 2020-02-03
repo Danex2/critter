@@ -1,4 +1,3 @@
-const path = require('path');
 const baseConfig = require('./webpack.config');
 const merge = require('webpack-merge');
 const TerserJSPlugin = require('terser-webpack-plugin');
@@ -7,6 +6,15 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = merge(baseConfig, {
   optimization: {
+    splitChunks: {
+      cacheGroups: {
+        defaultVendors: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendors',
+          chunks: 'all'
+        }
+      }
+    },
     minimize: true,
     minimizer: [
       new TerserJSPlugin({
@@ -17,7 +25,11 @@ module.exports = merge(baseConfig, {
           }
         }
       }),
-      new OptimizeCSSAssetsPlugin({})
+      new OptimizeCSSAssetsPlugin({
+        cssProcessorPluginOptions: {
+          preset: ['default', { discardComments: { removeAll: true } }]
+        }
+      })
     ]
   },
   module: {
