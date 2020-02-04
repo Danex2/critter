@@ -12,9 +12,9 @@
     "prod": "npm run build && npm run start",
     "start": "node dist/index.js",
     "docker": "cross-env NODE_ENV=docker nodemon --exec babel-node --require index.js",
-    "run:test": "jest --verbose test",
-    "run:cov": "jest --coverage",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install && npm run build && npm install --prefix client && npm run build --prefix client"
+    "test": "jest --verbose test",
+    "cov": "jest --coverage",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm run build && npm install --prefix client && npm run build --prefix client"
   },
   "dependencies": {
     "babel-plugin-dotenv": "^0.1.1",
