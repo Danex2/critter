@@ -4,6 +4,10 @@
   "engines": {
     "node": "13.7.0"
   },
+  "cacheDirectories": [
+    "node_modules",
+    "client/node_modules"
+  ],
   "main": "index.js",
   "license": "MIT",
   "scripts": {
@@ -14,7 +18,7 @@
     "docker": "cross-env NODE_ENV=docker nodemon --exec babel-node --require index.js",
     "test": "jest --verbose test",
     "cov": "jest --coverage",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+    "heroku-postbuild": "npm install --prefix client && npm run build --prefix client"
   },
   "dependencies": {
     "babel-plugin-dotenv": "^0.1.1",
