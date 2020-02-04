@@ -2,4 +2,3 @@ node_modules/
 private.pem*
 *.env
 .vscode
-build/
