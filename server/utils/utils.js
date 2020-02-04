@@ -1,7 +1,4 @@
-import dotenv from 'dotenv';
 import validator from 'validator';
-
-// dotenv.config();
 
 const isEmpty = value =>
   value === undefined ||
