@@ -29,7 +29,7 @@ function Login() {
         window.localStorage.setItem('token', JSON.stringify(res.data.token));
       })
       .then(() => navigate('/'))
-      .catch(e => setResponse(e.response.data));
+      .catch(e => setError(e.response.data));
   };
   return (
     <Container>
