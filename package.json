@@ -14,7 +14,7 @@
     "docker": "cross-env NODE_ENV=docker nodemon --exec babel-node --require index.js",
     "run:test": "jest --verbose test",
     "run:cov": "jest --coverage",
-    "heroku-postbuild": "npm install && npm run build && cd client && npm install && npm run build"
+    "netlify-deploy": "npm install && npm run build && cd client && npm install && npm run build"
   },
   "dependencies": {
     "babel-plugin-dotenv": "^0.1.1",
