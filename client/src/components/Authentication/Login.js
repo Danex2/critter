@@ -20,7 +20,7 @@ function Login() {
   const onSubmit = data => {
     const { username, password } = data;
     axios
-      .post('http://localhost:4000/login', {
+      .post('https://localhost:4000/login', {
         username,
         password
       })

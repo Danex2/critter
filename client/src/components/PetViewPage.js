@@ -9,7 +9,7 @@ const PetsView = () => {
   const [pets, setPets] = React.useState([]);
   React.useEffect(() => {
     axios
-      .get('http://localhost:4000/pets')
+      .get('https://localhost:4000/pets')
       .then(pets => setPets(pets.data.pets));
   }, []);
   return (

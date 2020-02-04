@@ -15,7 +15,7 @@ const MyAccount = () => {
     const { address, email, info, phone } = data;
     axios
       .put(
-        'http://localhost:4000/pet',
+        'https://localhost:4000/pet',
         {
           address,
           info,
@@ -34,7 +34,7 @@ const MyAccount = () => {
   };
   React.useEffect(() => {
     axios
-      .get('http://localhost:4000/mypet', {
+      .get('https://localhost:4000/mypet', {
         headers: {
           Authorization: `Bearer ${getToken()}`
         }
@@ -43,7 +43,7 @@ const MyAccount = () => {
   }, []);
   const deletePost = () => {
     axios
-      .delete('http://localhost:4000/pet', {
+      .delete('https://localhost:4000/pet', {
         headers: {
           Authorization: `Bearer ${getToken()}`
         }
