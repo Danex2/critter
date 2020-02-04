@@ -56,7 +56,6 @@ const MyAccount = () => {
         }));
       });
   };
-  console.log(accountInfo.data);
   return (
     <Container>
       {accountInfo?.data === null ? (
