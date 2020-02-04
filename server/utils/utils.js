@@ -1,7 +1,7 @@
-//import dotenv from 'dotenv';
+import dotenv from 'dotenv';
 import validator from 'validator';
 
-//dotenv.config();
+process.env.NODE_ENV === 'development' ? dotenv.config() : '';
 
 const isEmpty = value =>
   value === undefined ||

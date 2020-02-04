@@ -1,6 +1,6 @@
 # FindMyPet
 
-A tool to help find lost pets in the GTA.
+A tool to help pet owners in the GTA locate their missing pets.
 
 ## Stack
 
@@ -11,19 +11,12 @@ A tool to help find lost pets in the GTA.
 
 ## Running Locally
 
-### Backend
-
-Install dependencies with either `yarn` or `npm` then start using `yarn watch`. A private key is also needed for the middleware, make a `private.pem` file in the root of the project and generate a private key and paste it there.  
-(this project also uses mongodb so make sure that's running also.)
-
-### Frontend
-
-Change directories into the `frontend` folder and run `yarn` then `yarn start` (will have everything working in docker soon)
-
-### With docker (for the backend)
-
-`docker-compose up -d`
+1. Install dependencies: `npm run install:deps`
+2. Start the mongoDB (if not installed then install from brew)
+3. Start the backend and frontend:
+   - Backend: `npm run watch`
+   - Frontend: client -> `npm run start`
 
 ## Tests
 
-`yarn test` to run tests or `yarn run:cov` for tests & coverage.
+Tests are located in the `tests` folder. Run them by doing `npm run test`.

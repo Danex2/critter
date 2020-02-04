@@ -15,7 +15,7 @@
     "build": "babel server/ --ignore node_modules,.babelrc,package-lock.json,package.json,tests,client,jest.config.js -d dist",
     "prod": "npm run build && npm run start",
     "start": "node dist/index.js",
-    "docker": "cross-env NODE_ENV=docker nodemon --exec babel-node --require index.js",
+    "install:deps": "npm install && npm install --prefix client",
     "test": "jest --verbose test",
     "heroku-postbuild": "npm run build && npm install --prefix client && npm run build --prefix client"
   },
