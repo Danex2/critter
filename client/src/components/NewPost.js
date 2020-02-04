@@ -67,7 +67,7 @@ function NewPost() {
           label='Location'
           type='text'
           inputRef={register}
-          placeholder='Jane St & Wilson Ave'
+          placeholder='Full address, Ex. Richmond Hill Centre, Yonge Street, Richmond Hill, ON'
         />
         <label htmlFor='Extra info'>
           <textarea
