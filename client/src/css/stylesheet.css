@@ -1,6 +1,4 @@
-/* purgecss start ignore */
 @tailwind base;
-
 html {
   height: 100%;
 }
@@ -9,8 +7,5 @@ html {
   display: grid;
   grid-template-rows: auto 1fr auto;
 }
-
 @tailwind components;
-/* purgecss end ignore */
-
 @tailwind utilities;
