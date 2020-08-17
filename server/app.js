@@ -1,9 +1,9 @@
-import express from 'express';
-import cors from 'cors';
-import helmet from 'helmet';
-import auth from './routers/authRoutes';
-import pet from './routers/petRoutes';
-const path = require('path');
+import express from "express";
+import cors from "cors";
+import helmet from "helmet";
+import auth from "./routers/authRoutes";
+import pet from "./routers/petRoutes";
+const path = require("path");
 
 const app = express();
 
@@ -11,7 +11,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(
   cors({
-    methods: ['GET', 'PUT', 'POST', 'DELETE']
+    methods: ["GET", "PUT", "POST", "DELETE"],
   })
 );
 app.use(helmet());
@@ -19,10 +19,10 @@ app.use(helmet());
 app.use([auth, pet]);
 
 // Set static folder
-app.use(express.static('client/dist'));
+app.use(express.static("client/dist"));
 
-app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, 'client', 'dist', 'index.html'));
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(process.cwd(), "client", "dist", "index.html"));
 });
 
 export default app;

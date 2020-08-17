@@ -1,9 +1,6 @@
 {
   "name": "findmypet",
   "version": "1.0.0",
-  "engines": {
-    "node": "13.7.0"
-  },
   "cacheDirectories": [
     "node_modules",
     "client/node_modules"
