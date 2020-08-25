@@ -18,7 +18,7 @@ function Register() {
   const onSubmit = (data) => {
     const { username, password, email, phone } = data;
     axios
-      .post(`http://localhost:${process.env.PORT}/register`, {
+      .post("http://localhost:8888/register", {
         username,
         password,
         email,

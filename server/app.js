@@ -12,6 +12,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(
   cors({
     methods: ["GET", "PUT", "POST", "DELETE"],
+    origin: "http://localhost:1234",
   })
 );
 app.use(helmet());
