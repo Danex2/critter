@@ -1,7 +1,7 @@
 import app from "./app";
 import mongoose from "mongoose";
 
-const port = process.env.PORT || 8888;
+const port = process.env.PORT || 8938;
 
 mongoose
   .connect(process.env.MONGO_URI || "mongodb://localhost:27017/findmypetdb", {

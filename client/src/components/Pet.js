@@ -7,9 +7,7 @@ const Pet = ({ id }) => {
   const [petInfo, setPetInfo] = React.useState({});
   React.useEffect(() => {
     document.title = "Find My Pet - View";
-    axios
-      .get(`http://localhost:8888/pet/${id}`)
-      .then((data) => setPetInfo(data.data.pet));
+    axios.get(`/pet/${id}`).then((data) => setPetInfo(data.data.pet));
   }, []);
   return (
     <Container>

@@ -18,7 +18,7 @@ function Register() {
   const onSubmit = (data) => {
     const { username, password, email, phone } = data;
     axios
-      .post("http://localhost:8888/register", {
+      .post("/register", {
         username,
         password,
         email,

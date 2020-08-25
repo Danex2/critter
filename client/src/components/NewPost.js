@@ -26,7 +26,7 @@ function NewPost() {
     dog.append("lastSeen", lastSeen);
     dog.append("address", address);
     axios
-      .post("http://localhost:8888/pet", dog, {
+      .post("/pet", dog, {
         headers: {
           Authorization: `Bearer ${getToken()}`,
         },

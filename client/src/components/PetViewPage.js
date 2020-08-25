@@ -8,9 +8,7 @@ const PetsView = () => {
   }, []);
   const [pets, setPets] = React.useState([]);
   React.useEffect(() => {
-    axios
-      .get("http://localhost:8888/pets")
-      .then((pets) => setPets(pets.data.pets));
+    axios.get("/pets").then((pets) => setPets(pets.data.pets));
   }, []);
   return (
     <div className="flex flex-wrap p-4 flex justify-center">

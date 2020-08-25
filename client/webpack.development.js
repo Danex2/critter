@@ -8,6 +8,11 @@ module.exports = merge(baseConfig, {
   devServer: {
     contentBase: path.join(__dirname, "dist"),
     historyApiFallback: true,
+    proxy: {
+      "/": {
+        target: "http://localhost:8938",
+      },
+    },
   },
   module: {
     rules: [

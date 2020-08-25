@@ -20,7 +20,7 @@ function Login() {
   const onSubmit = (data) => {
     const { username, password } = data;
     axios
-      .post("http://localhost:8888/login", {
+      .post("/login", {
         username,
         password,
       })
