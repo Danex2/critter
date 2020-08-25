@@ -8,7 +8,7 @@ const Pet = ({ id }) => {
   React.useEffect(() => {
     document.title = "Find My Pet - View";
     axios
-      .get(`http://localhost:8888/pet/${id}`)
+      .get(`http://localhost:${process.env.PORT}/pet/${id}`)
       .then((data) => setPetInfo(data.data.pet));
   }, []);
   return (
