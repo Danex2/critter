@@ -1,5 +1,10 @@
+import Layout from "@/components/Layout";
+import PetList from "@/components/PetList";
+
 export default function Home() {
-    return (
-        <div>hello world</div>
-    )
+  return (
+    <Layout title="Listings">
+      <PetList />
+    </Layout>
+  );
 }
