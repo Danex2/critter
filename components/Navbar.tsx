@@ -25,7 +25,7 @@ export default function Navbar() {
   const btnRef = useRef();
   return (
     <>
-      <Box as="nav" h="5rem">
+      <Box as="nav" h="5rem" borderBottom="1px solid #E2E8F0">
         <Box
           display="flex"
           alignItems="center"

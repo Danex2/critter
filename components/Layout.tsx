@@ -11,7 +11,7 @@ export default function Layout({ children, title }: LayoutProps) {
   return (
     <>
       <Head>
-        <title>Pettr | {title}</title>
+        <title>Petfinder | {title}</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <link rel="preconnect" href="https://fonts.gstatic.com" />
         <link

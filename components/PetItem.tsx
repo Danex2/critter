@@ -50,7 +50,7 @@ export default function PetItem({ pet }: Pet) {
           <TagLeftIcon as={RiHome3Line} boxSize="16px" />
           <TagLabel>Toronto</TagLabel>
         </Tag>
-        <Text fontSize="12px" noOfLines={4} mb={{ base: 8 }}>
+        <Text fontSize="12px" noOfLines={4} mb={{ base: 8 }} color="gray.500">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis harum
           soluta maxime quidem dolorem ipsum odit vel expedita rem! Tempora
           voluptas expedita soluta doloribus laborum. Accusamus eum ducimus
@@ -71,7 +71,7 @@ export default function PetItem({ pet }: Pet) {
           fontSize="xs"
           transition="all 0.5s"
           _hover={{
-            bg: "blue.200",
+            bg: "blue.100",
           }}
         >
           View more
