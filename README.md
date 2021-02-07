@@ -1,6 +1,6 @@
 # About
 
-Pettr is a website I built to help pet owners find their lost pets.
+Petfinder is a website I built to help pet owners find their lost pets.
 
 ## Technology
 
@@ -38,4 +38,4 @@ Dane Miller
 
 ## License
 
-This project is open source and available under the [MIT License](https://github.com/Danex2/pettr/blob/main/LICENSE)
+This project is open source and available under the [MIT License](https://github.com/Danex2/petfinder/blob/main/LICENSE)

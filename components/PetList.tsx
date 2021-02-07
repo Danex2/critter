@@ -13,7 +13,7 @@ export default function PetList() {
   });
 
   return (
-    <Box maxW="1440px" mx="auto" my={104} px={{ base: 5, lg: 0 }}>
+    <Box maxW="1440px" mx="auto" mt={104} pb={104} px={{ base: 5, lg: 0 }}>
       <Stack
         mb="24px"
         direction={{ base: "column", lg: "row" }}

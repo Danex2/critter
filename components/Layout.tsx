@@ -19,7 +19,7 @@ export default function Layout({ children, title }: LayoutProps) {
           rel="stylesheet"
         />
       </Head>
-      <Box as="main" minH="100vh">
+      <Box as="main" minH="100vh" bg="gray.50">
         <Navbar />
         {children}
       </Box>

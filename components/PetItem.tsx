@@ -1,4 +1,5 @@
-import { Box, Image, Text } from "@chakra-ui/react";
+import { Box, Image, Tag, TagLabel, TagLeftIcon, Text } from "@chakra-ui/react";
+import { RiHome3Line } from "react-icons/ri";
 
 type PetItemProps = {
   image: string;
@@ -40,9 +41,15 @@ export default function PetItem({ pet }: Pet) {
             8 days ago
           </Text>
         </Box>
-        <Text fontSize="14px" mb="16px" opacity={0.5}>
-          Toronto
-        </Text>
+        <Tag
+          mb="16px"
+          opacity={0.5}
+          colorScheme="messenger"
+          width="max-content"
+        >
+          <TagLeftIcon as={RiHome3Line} boxSize="16px" />
+          <TagLabel>Toronto</TagLabel>
+        </Tag>
         <Text fontSize="12px" noOfLines={4} mb={{ base: 8 }}>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis harum
           soluta maxime quidem dolorem ipsum odit vel expedita rem! Tempora
