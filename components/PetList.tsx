@@ -1,4 +1,4 @@
-import { Box, Stack } from "@chakra-ui/react";
+import { Box, Button, Input, Select, Stack } from "@chakra-ui/react";
 import PetItem from "./PetItem";
 
 export default function PetList() {
@@ -13,8 +13,33 @@ export default function PetList() {
   });
 
   return (
-    <Box maxW="1440px" mx="auto" mt={104}>
-      <Stack>
+    <Box maxW="1440px" mx="auto" my={104} px={{ base: 5, lg: 0 }}>
+      <Stack
+        mb="24px"
+        direction={{ base: "column", lg: "row" }}
+        maxW="1000px"
+        mx="auto"
+        spacing={{ base: 10, lg: 5 }}
+      >
+        <Input type="text" variant="flushed" placeholder="Name" />
+        <Select placeholder="City" variant="flushed">
+          <option value="option1">North York</option>
+          <option value="option2">Brampton</option>
+          <option value="option3">Richmond Hill</option>
+        </Select>
+        <Button
+          px={30}
+          py={2}
+          bg="blue.900"
+          color="white"
+          _hover={{
+            bg: "blue.700",
+          }}
+        >
+          Search
+        </Button>
+      </Stack>
+      <Stack align="center" spacing={15}>
         {pets.map((pet, index) => (
           <PetItem pet={pet} key={index} />
         ))}

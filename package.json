@@ -25,7 +25,9 @@
     "next-auth": "^3.2.0",
     "nexus": "^1.0.0",
     "react": "^17.0.1",
-    "react-dom": "^17.0.1"
+    "react-dom": "^17.0.1",
+    "react-hook-form": "^6.15.1",
+    "react-icons": "^4.2.0"
   },
   "devDependencies": {
     "@prisma/cli": "^2.16.0",
