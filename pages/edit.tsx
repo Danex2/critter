@@ -20,7 +20,7 @@ export default function Edit() {
   const router = useRouter();
 
   return (
-    <Layout title="Create">
+    <Layout title="Edit">
       <Box maxW="1000px" mx="auto" mt={104} pb={104} px={{ base: 5, lg: 0 }}>
         <Text as="h1" fontSize="3xl" fontWeight="bold" marginBottom="24px">
           Edit listing

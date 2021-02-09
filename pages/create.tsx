@@ -109,9 +109,9 @@ export default function Create() {
             <Button
               variant="ghost"
               mr={3}
-              color="blue.700"
+              color="red.500"
               _hover={{
-                bg: "blue.300",
+                bg: "red.200",
               }}
               onClick={() => router.push("/")}
             >
