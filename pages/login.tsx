@@ -35,6 +35,7 @@ export default function Login() {
             _hover={{
               bg: "gray.800",
             }}
+            textAlign="left"
             onClick={() => signIn("github")}
           >
             Login with Github

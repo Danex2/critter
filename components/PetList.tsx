@@ -21,8 +21,8 @@ export default function PetList() {
         mx="auto"
         spacing={{ base: 10, lg: 5 }}
       >
-        <Input type="text" variant="flushed" placeholder="Name" />
-        <Select placeholder="City" variant="flushed">
+        <Input type="text" placeholder="Name" />
+        <Select placeholder="City">
           <option value="option1">North York</option>
           <option value="option2">Brampton</option>
           <option value="option3">Richmond Hill</option>

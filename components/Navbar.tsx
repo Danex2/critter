@@ -50,19 +50,16 @@ export default function Navbar() {
               </Text>
             </Text>
           </ChakraLink>
-          <HStack display={{ base: "none", lg: "block" }}>
+          <HStack display={{ base: "none", lg: "block" }} spacing={10}>
             <ChakraLink as={Link} href="/about">
               <Text
                 as="a"
                 fontWeight="bold"
                 cursor="pointer"
                 color="gray.500"
-                px={30}
-                py={2}
                 borderRadius="5px"
                 transition="all 0.5s"
                 _hover={{
-                  bg: "blue.100",
                   color: "blue.700",
                 }}
               >
@@ -75,12 +72,9 @@ export default function Navbar() {
                 fontWeight="bold"
                 cursor="pointer"
                 color="gray.500"
-                px={30}
-                py={2}
                 borderRadius="5px"
                 transition="all 0.5s"
                 _hover={{
-                  bg: "blue.100",
                   color: "blue.700",
                 }}
               >

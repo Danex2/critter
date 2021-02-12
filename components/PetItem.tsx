@@ -61,17 +61,14 @@ export default function PetItem({ pet }: Pet) {
           cursor="pointer"
           mt={{ base: "", md: "auto" }}
           ml={{ base: "", md: "auto" }}
-          px={30}
-          py={2}
-          color="blue.600"
-          borderRadius="5px"
+          color="gray.400"
           fontWeight="bold"
           textTransform="uppercase"
           textAlign="center"
           fontSize="xs"
           transition="all 0.5s"
           _hover={{
-            bg: "blue.100",
+            color: "blue.600",
           }}
         >
           View more

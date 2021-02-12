@@ -39,12 +39,12 @@ export default function Edit() {
           <Grid templateColumns={{ base: "1fr", lg: "1fr 1fr" }} gap={3} mb={8}>
             <FormControl id="name" isRequired>
               <FormLabel>Name</FormLabel>
-              <Input type="text" variant="flushed" />
+              <Input type="text" />
               <FormHelperText>The name of your pet</FormHelperText>
             </FormControl>
             <FormControl id="breed" isRequired>
               <FormLabel>Breed</FormLabel>
-              <Input type="text" variant="flushed" />
+              <Input type="text" />
             </FormControl>
             <FormControl id="images" mt={3}>
               <FormLabel
@@ -71,7 +71,7 @@ export default function Edit() {
             </FormControl>
             <FormControl id="city">
               <FormLabel>City</FormLabel>
-              <Select placeholder="Select the city you're in" variant="flushed">
+              <Select placeholder="Select the city you're in">
                 <option value="option1">North York</option>
                 <option value="option2">Etobicoke</option>
                 <option value="option3">Scarborough</option>
@@ -84,9 +84,9 @@ export default function Edit() {
               placeholder="Be as detailed as you can, last area seen, date / time etc."
               resize="none"
               rows={10}
-              variant="flushed"
             />
           </FormControl>
+          <Divider marginBottom="16px" />
           <Box marginBottom="24px">
             <Text as="h2" fontSize="2xl" marginBottom="8px">
               Contact Info
@@ -103,15 +103,15 @@ export default function Edit() {
             mb={24}
           >
             <FormLabel>Phone number</FormLabel>
-            <Input type="tel" variant="flushed" />
+            <Input type="tel" />
           </FormControl>
           <Box display="flex" justifyContent="flex-end">
             <Button
               variant="ghost"
               mr={3}
-              color="blue.700"
+              color="gray.500"
               _hover={{
-                bg: "blue.300",
+                color: "red.500",
               }}
               onClick={() => router.push("/")}
             >
