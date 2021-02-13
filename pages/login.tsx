@@ -3,9 +3,12 @@ import { Box, Button, Stack, Text } from "@chakra-ui/react";
 import { DiGithubAlt } from "react-icons/di";
 import { AiOutlineGoogle } from "react-icons/ai";
 import { ImFacebook } from "react-icons/im";
-import { signIn } from "next-auth/client";
+import { signIn, useSession } from "next-auth/client";
 
 export default function Login() {
+  const [session] = useSession();
+
+  console.log(session);
   return (
     <Layout title="Login">
       <Box
