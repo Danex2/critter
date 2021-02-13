@@ -5,6 +5,7 @@ import {
   Button,
   Divider,
   FormControl,
+  FormErrorMessage,
   FormHelperText,
   FormLabel,
   Grid,
@@ -46,10 +47,12 @@ const CREATE_PET = gql`
 
 export default function Create() {
   const router = useRouter();
-  const { register, handleSubmit, errors } = useForm();
+  const { register, handleSubmit, errors, watch } = useForm();
   const toast = useToast();
   const [session] = useSession();
   const [createPet] = useMutation(CREATE_PET);
+
+  console.log(errors.phoneNumber.message);
 
   return (
     <Layout title="Create">
@@ -115,12 +118,20 @@ export default function Create() {
           <Grid templateColumns={{ base: "1fr", lg: "1fr 1fr" }} gap={3} mb={8}>
             <FormControl id="name" isRequired>
               <FormLabel>Name</FormLabel>
-              <Input type="text" ref={register} name="petName" />
+              <Input
+                type="text"
+                ref={register({ maxLength: 20 })}
+                name="petName"
+              />
               <FormHelperText>The name of your pet</FormHelperText>
             </FormControl>
             <FormControl id="breed">
               <FormLabel>Breed</FormLabel>
-              <Input type="text" ref={register} name="breed" />
+              <Input
+                type="text"
+                ref={register({ maxLength: 30 })}
+                name="breed"
+              />
             </FormControl>
             <FormControl id="images" mt={3}>
               <FormLabel
@@ -169,7 +180,7 @@ export default function Create() {
               placeholder="Be as detailed as you can, last area seen, date / time etc."
               resize="none"
               rows={10}
-              ref={register}
+              ref={register({ maxLength: 500 })}
               name="description"
             />
           </FormControl>
@@ -188,9 +199,20 @@ export default function Create() {
             isRequired
             maxW={{ base: "100%", lg: "40%" }}
             mb={24}
+            isInvalid={errors.phoneNumber}
           >
             <FormLabel>Phone number</FormLabel>
-            <Input type="tel" ref={register} name="phoneNumber" />
+            <Input
+              type="tel"
+              ref={register({
+                pattern: {
+                  value: /[0-9]{3}-[0-9]{3}-[0-9]{4}/i,
+                  message: "Expected phone number format (888-888-8888)",
+                },
+              })}
+              name="phoneNumber"
+            />
+            <FormErrorMessage>{errors.phoneNumber.message}</FormErrorMessage>
           </FormControl>
           <Box display="flex" justifyContent="flex-end">
             <Button
