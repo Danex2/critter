@@ -1,4 +1,5 @@
 import Layout from "@/components/Layout";
+import dynamic from "next/dynamic";
 import { useMutation, gql } from "@apollo/client";
 import {
   Box,
@@ -18,6 +19,7 @@ import {
 import { useSession } from "next-auth/client";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
+import SearchBox from "@nulfrost/react-mapbox-search";
 
 // Add text showing how many images were selected for upload
 
@@ -47,12 +49,10 @@ const CREATE_PET = gql`
 
 export default function Create() {
   const router = useRouter();
-  const { register, handleSubmit, errors, watch } = useForm();
+  const { register, handleSubmit, errors, trigger } = useForm();
   const toast = useToast();
   const [session] = useSession();
   const [createPet] = useMutation(CREATE_PET);
-
-  console.log(errors.phoneNumber.message);
 
   return (
     <Layout title="Create">
@@ -160,15 +160,16 @@ export default function Create() {
             </FormControl>
             <FormControl id="city" isRequired>
               <FormLabel>City</FormLabel>
-              <Select
-                placeholder="Select the city you're in"
-                ref={register}
-                name="city"
-              >
-                <option value="North York">North York</option>
-                <option value="Etobicoke">Etobicoke</option>
-                <option value="Scarborough">Scarborough</option>
-              </Select>
+
+              <SearchBox
+                token={process.env.NEXT_PUBLIC_MAPBOX_TOKEN}
+                callback={({ location, event }) => {
+                  console.log(location, event);
+                }}
+                country="CA"
+                selectColor="#1A365D"
+              />
+
               <FormHelperText>
                 Providing the city helps narrow down the search area
               </FormHelperText>
@@ -210,9 +211,10 @@ export default function Create() {
                   message: "Expected phone number format (888-888-8888)",
                 },
               })}
+              onChange={() => trigger("phoneNumber")}
               name="phoneNumber"
             />
-            <FormErrorMessage>{errors.phoneNumber.message}</FormErrorMessage>
+            <FormErrorMessage>{errors.phoneNumber?.message}</FormErrorMessage>
           </FormControl>
           <Box display="flex" justifyContent="flex-end">
             <Button
