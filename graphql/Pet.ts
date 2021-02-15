@@ -8,6 +8,8 @@ export const Pet = objectType({
     t.model.breed();
     t.model.description();
     t.model.city();
+    t.model.address()
+    t.model.location()
     t.model.phoneNumber();
     t.model.images();
     t.model.createdAt();
@@ -19,6 +21,7 @@ export const Pet = objectType({
 export const Query = extendType({
   type: "Query",
   definition(t) {
+    t.crud.pet()
     t.crud.pets({
       ordering: true,
       pagination: true,
@@ -30,7 +33,7 @@ export const Query = extendType({
 export const createPet = extendType({
   type: "Mutation",
   definition(t) {
-    t.crud.createOnePet();
+    t.crud.createOnePet()
     t.crud.deleteOnePet();
     t.crud.updateOnePet();
   },

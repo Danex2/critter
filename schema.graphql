@@ -30,6 +30,14 @@ input DateTimeNullableFilter {
   notIn: [DateTime!]
 }
 
+input FloatNullableListFilter {
+  equals: [Float!]
+  has: Float
+  hasEvery: [Float!]
+  hasSome: [Float!]
+  isEmpty: Boolean
+}
+
 type Image {
   Pet: Pet
   id: String!
@@ -207,12 +215,14 @@ input NullableStringFieldUpdateOperationsInput {
 }
 
 type Pet {
+  address: String!
   breed: String!
   city: String!
   createdAt: DateTime!
   description: String!
   id: String!
   images(after: ImageWhereUniqueInput, before: ImageWhereUniqueInput, first: Int, last: Int): [Image!]!
+  location: [Float!]!
   name: String!
   phoneNumber: String!
   updatedAt: DateTime!
@@ -220,24 +230,32 @@ type Pet {
 }
 
 input PetCreateInput {
+  address: String!
   breed: String!
   city: String!
   createdAt: DateTime
   description: String!
   id: String
   images: ImageCreateNestedManyWithoutPetInput
+  location: PetCreatelocationInput
   name: String!
   phoneNumber: String!
   updatedAt: DateTime
   user: UserCreateNestedOneWithoutPetInput!
 }
 
+input PetCreatelocationInput {
+  set: [Float!]
+}
+
 input PetOrderByInput {
+  address: SortOrder
   breed: SortOrder
   city: SortOrder
   createdAt: SortOrder
   description: SortOrder
   id: SortOrder
+  location: SortOrder
   name: SortOrder
   phoneNumber: SortOrder
   updatedAt: SortOrder
@@ -246,28 +264,36 @@ input PetOrderByInput {
 }
 
 input PetUpdateInput {
+  address: StringFieldUpdateOperationsInput
   breed: StringFieldUpdateOperationsInput
   city: StringFieldUpdateOperationsInput
   createdAt: DateTimeFieldUpdateOperationsInput
   description: StringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   images: ImageUpdateManyWithoutPetInput
+  location: PetUpdatelocationInput
   name: StringFieldUpdateOperationsInput
   phoneNumber: StringFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
   user: UserUpdateOneRequiredWithoutPetInput
 }
 
+input PetUpdatelocationInput {
+  set: [Float!]
+}
+
 input PetWhereInput {
   AND: [PetWhereInput!]
   NOT: [PetWhereInput!]
   OR: [PetWhereInput!]
+  address: StringFilter
   breed: StringFilter
   city: StringFilter
   createdAt: DateTimeFilter
   description: StringFilter
   id: StringFilter
   images: ImageListRelationFilter
+  location: FloatNullableListFilter
   name: StringFilter
   phoneNumber: StringFilter
   updatedAt: DateTimeFilter
@@ -280,6 +306,7 @@ input PetWhereUniqueInput {
 }
 
 type Query {
+  pet(where: PetWhereUniqueInput!): Pet
   pets(after: PetWhereUniqueInput, before: PetWhereUniqueInput, first: Int, last: Int, orderBy: [PetOrderByInput!], where: PetWhereInput): [Pet!]!
 }
 

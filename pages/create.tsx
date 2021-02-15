@@ -1,5 +1,4 @@
 import Layout from "@/components/Layout";
-import dynamic from "next/dynamic";
 import { useMutation, gql } from "@apollo/client";
 import {
   Box,
@@ -20,31 +19,39 @@ import { useSession } from "next-auth/client";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import SearchBox from "@nulfrost/react-mapbox-search";
+import {useState} from "react"
 
 // Add text showing how many images were selected for upload
 
 const CREATE_PET = gql`
-  mutation CreatePet(
-    $name: String!
-    $description: String!
-    $breed: String!
-    $city: String!
-    $phoneNumber: String!
-    $id: Int!
-  ) {
-    createOnePet(
-      data: {
-        name: $name
-        description: $description
-        breed: $breed
-        city: $city
-        phoneNumber: $phoneNumber
-        user: { connect: { id: $id } }
+ mutation CreateOnePet(
+  $name: String!
+  $description: String!
+  $breed: String!
+  $city: String!
+  $address: String!
+  $location: [Float!]
+  $phoneNumber: String!
+  $id: Int!
+) {
+  createOnePet(
+    data: {
+      name: $name
+      description: $description
+      breed: $breed
+      city: $city
+      phoneNumber: $phoneNumber
+      address: $address
+      location: {
+        set: $location
       }
-    ) {
-      id
+      user: { connect: { id: $id } }
     }
+  ) {
+    id
   }
+}
+
 `;
 
 export default function Create() {
@@ -53,6 +60,9 @@ export default function Create() {
   const toast = useToast();
   const [session] = useSession();
   const [createPet] = useMutation(CREATE_PET);
+  const [location, setLocation] = useState<{address: string, coords: [number, number]}>({address: "", coords: [1, 1]})
+
+  console.log(location.address, location.coords)
 
   return (
     <Layout title="Create">
@@ -87,8 +97,10 @@ export default function Create() {
                 description,
                 breed,
                 city,
+                address: location.address,
+                location: location.coords,
                 phoneNumber,
-                id: session.user.id,
+                id: (session.user as any).id,
               },
             })
               .then(() => {
@@ -160,18 +172,26 @@ export default function Create() {
             </FormControl>
             <FormControl id="city" isRequired>
               <FormLabel>City</FormLabel>
+              <Select placeholder="Select option" ref={register} name="city">
+                <option value="option1">Etobicoke</option>
+                <option value="option3">Brampton</option>
+              </Select>
+            </FormControl>
+            <FormControl id="lastKnownLocation" isRequired>
+              <FormLabel>Last known location</FormLabel>
 
               <SearchBox
                 token={process.env.NEXT_PUBLIC_MAPBOX_TOKEN}
                 callback={({ location, event }) => {
-                  console.log(location, event);
+                  setLocation({address: location.place_name, coords: [location.center[0],location.center[1]]})
                 }}
                 country="CA"
                 selectColor="#1A365D"
               />
 
               <FormHelperText>
-                Providing the city helps narrow down the search area
+                Providing an address of last known location helps narrow down
+                the search area
               </FormHelperText>
             </FormControl>
           </Grid>

@@ -42,6 +42,13 @@ export interface NexusGenInputs {
     not?: NexusGenInputs['NestedDateTimeNullableFilter'] | null; // NestedDateTimeNullableFilter
     notIn?: NexusGenScalars['DateTime'][] | null; // [DateTime!]
   }
+  FloatNullableListFilter: { // input type
+    equals?: number[] | null; // [Float!]
+    has?: number | null; // Float
+    hasEvery?: number[] | null; // [Float!]
+    hasSome?: number[] | null; // [Float!]
+    isEmpty?: boolean | null; // Boolean
+  }
   ImageCreateNestedManyWithoutPetInput: { // input type
     connect?: NexusGenInputs['ImageWhereUniqueInput'][] | null; // [ImageWhereUniqueInput!]
     connectOrCreate?: NexusGenInputs['ImageCreateOrConnectWithoutPetInput'][] | null; // [ImageCreateOrConnectWithoutPetInput!]
@@ -186,23 +193,30 @@ export interface NexusGenInputs {
     set?: string | null; // String
   }
   PetCreateInput: { // input type
+    address: string; // String!
     breed: string; // String!
     city: string; // String!
     createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
     description: string; // String!
     id?: string | null; // String
     images?: NexusGenInputs['ImageCreateNestedManyWithoutPetInput'] | null; // ImageCreateNestedManyWithoutPetInput
+    location?: NexusGenInputs['PetCreatelocationInput'] | null; // PetCreatelocationInput
     name: string; // String!
     phoneNumber: string; // String!
     updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
     user: NexusGenInputs['UserCreateNestedOneWithoutPetInput']; // UserCreateNestedOneWithoutPetInput!
   }
+  PetCreatelocationInput: { // input type
+    set?: number[] | null; // [Float!]
+  }
   PetOrderByInput: { // input type
+    address?: NexusGenEnums['SortOrder'] | null; // SortOrder
     breed?: NexusGenEnums['SortOrder'] | null; // SortOrder
     city?: NexusGenEnums['SortOrder'] | null; // SortOrder
     createdAt?: NexusGenEnums['SortOrder'] | null; // SortOrder
     description?: NexusGenEnums['SortOrder'] | null; // SortOrder
     id?: NexusGenEnums['SortOrder'] | null; // SortOrder
+    location?: NexusGenEnums['SortOrder'] | null; // SortOrder
     name?: NexusGenEnums['SortOrder'] | null; // SortOrder
     phoneNumber?: NexusGenEnums['SortOrder'] | null; // SortOrder
     updatedAt?: NexusGenEnums['SortOrder'] | null; // SortOrder
@@ -210,27 +224,34 @@ export interface NexusGenInputs {
     userId?: NexusGenEnums['SortOrder'] | null; // SortOrder
   }
   PetUpdateInput: { // input type
+    address?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
     breed?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
     city?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
     createdAt?: NexusGenInputs['DateTimeFieldUpdateOperationsInput'] | null; // DateTimeFieldUpdateOperationsInput
     description?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
     id?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
     images?: NexusGenInputs['ImageUpdateManyWithoutPetInput'] | null; // ImageUpdateManyWithoutPetInput
+    location?: NexusGenInputs['PetUpdatelocationInput'] | null; // PetUpdatelocationInput
     name?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
     phoneNumber?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
     updatedAt?: NexusGenInputs['DateTimeFieldUpdateOperationsInput'] | null; // DateTimeFieldUpdateOperationsInput
     user?: NexusGenInputs['UserUpdateOneRequiredWithoutPetInput'] | null; // UserUpdateOneRequiredWithoutPetInput
   }
+  PetUpdatelocationInput: { // input type
+    set?: number[] | null; // [Float!]
+  }
   PetWhereInput: { // input type
     AND?: NexusGenInputs['PetWhereInput'][] | null; // [PetWhereInput!]
     NOT?: NexusGenInputs['PetWhereInput'][] | null; // [PetWhereInput!]
     OR?: NexusGenInputs['PetWhereInput'][] | null; // [PetWhereInput!]
+    address?: NexusGenInputs['StringFilter'] | null; // StringFilter
     breed?: NexusGenInputs['StringFilter'] | null; // StringFilter
     city?: NexusGenInputs['StringFilter'] | null; // StringFilter
     createdAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
     description?: NexusGenInputs['StringFilter'] | null; // StringFilter
     id?: NexusGenInputs['StringFilter'] | null; // StringFilter
     images?: NexusGenInputs['ImageListRelationFilter'] | null; // ImageListRelationFilter
+    location?: NexusGenInputs['FloatNullableListFilter'] | null; // FloatNullableListFilter
     name?: NexusGenInputs['StringFilter'] | null; // StringFilter
     phoneNumber?: NexusGenInputs['StringFilter'] | null; // StringFilter
     updatedAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
@@ -356,11 +377,13 @@ export interface NexusGenObjects {
   }
   Mutation: {};
   Pet: { // root type
+    address: string; // String!
     breed: string; // String!
     city: string; // String!
     createdAt: NexusGenScalars['DateTime']; // DateTime!
     description: string; // String!
     id: string; // String!
+    location: number[]; // [Float!]!
     name: string; // String!
     phoneNumber: string; // String!
     updatedAt: NexusGenScalars['DateTime']; // DateTime!
@@ -395,18 +418,21 @@ export interface NexusGenFieldTypes {
     updateOnePet: NexusGenRootTypes['Pet'] | null; // Pet
   }
   Pet: { // field return type
+    address: string; // String!
     breed: string; // String!
     city: string; // String!
     createdAt: NexusGenScalars['DateTime']; // DateTime!
     description: string; // String!
     id: string; // String!
     images: NexusGenRootTypes['Image'][]; // [Image!]!
+    location: number[]; // [Float!]!
     name: string; // String!
     phoneNumber: string; // String!
     updatedAt: NexusGenScalars['DateTime']; // DateTime!
     user: NexusGenRootTypes['User']; // User!
   }
   Query: { // field return type
+    pet: NexusGenRootTypes['Pet'] | null; // Pet
     pets: NexusGenRootTypes['Pet'][]; // [Pet!]!
   }
   User: { // field return type
@@ -429,18 +455,21 @@ export interface NexusGenFieldTypeNames {
     updateOnePet: 'Pet'
   }
   Pet: { // field return type name
+    address: 'String'
     breed: 'String'
     city: 'String'
     createdAt: 'DateTime'
     description: 'String'
     id: 'String'
     images: 'Image'
+    location: 'Float'
     name: 'String'
     phoneNumber: 'String'
     updatedAt: 'DateTime'
     user: 'User'
   }
   Query: { // field return type name
+    pet: 'Pet'
     pets: 'Pet'
   }
   User: { // field return type name
@@ -473,6 +502,9 @@ export interface NexusGenArgTypes {
     }
   }
   Query: {
+    pet: { // args
+      where: NexusGenInputs['PetWhereUniqueInput']; // PetWhereUniqueInput!
+    }
     pets: { // args
       after?: NexusGenInputs['PetWhereUniqueInput'] | null; // PetWhereUniqueInput
       before?: NexusGenInputs['PetWhereUniqueInput'] | null; // PetWhereUniqueInput
