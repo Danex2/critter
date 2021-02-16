@@ -10,7 +10,9 @@
     "commit": "cz",
     "migrate": "npx prisma migrate dev --name init --preview-feature",
     "test": "jest __tests__",
-    "seed": "npx prisma db seed --preview-feature"
+    "seed": "npx prisma db seed --preview-feature",
+    "generate:prisma": "npx prisma generate",
+    "generate:apollo": "npx apollo client:codegen --target typescript --localSchemaFile schema.graphql --outputFlat --includes '{pages,src}/**' --excludes 'src/generated' src/generated/apollo"
   },
   "dependencies": {
     "@apollo/client": "^3.3.7",

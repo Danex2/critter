@@ -62,8 +62,6 @@ export default function Create() {
   const [createPet] = useMutation(CREATE_PET);
   const [location, setLocation] = useState<{address: string, coords: [number, number]}>({address: "", coords: [1, 1]})
 
-  console.log(location.address, location.coords)
-
   return (
     <Layout title="Create">
       <Box maxW="1000px" mx="auto" mt={104} pb={104} px={{ base: 5, lg: 0 }}>

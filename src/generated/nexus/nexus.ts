@@ -4,7 +4,7 @@
  */
 
 
-import { Context as ctx } from "@prisma/client"
+
 
 
 declare global {
@@ -434,6 +434,7 @@ export interface NexusGenFieldTypes {
   Query: { // field return type
     pet: NexusGenRootTypes['Pet'] | null; // Pet
     pets: NexusGenRootTypes['Pet'][]; // [Pet!]!
+    user: NexusGenRootTypes['User'] | null; // User
   }
   User: { // field return type
     email: string | null; // String
@@ -471,6 +472,7 @@ export interface NexusGenFieldTypeNames {
   Query: { // field return type name
     pet: 'Pet'
     pets: 'Pet'
+    user: 'User'
   }
   User: { // field return type name
     email: 'String'
@@ -513,6 +515,9 @@ export interface NexusGenArgTypes {
       orderBy?: NexusGenInputs['PetOrderByInput'][] | null; // [PetOrderByInput!]
       where?: NexusGenInputs['PetWhereInput'] | null; // PetWhereInput
     }
+    user: { // args
+      where: NexusGenInputs['UserWhereUniqueInput']; // UserWhereUniqueInput!
+    }
   }
 }
 
@@ -547,7 +552,7 @@ export type NexusGenFeaturesConfig = {
 }
 
 export interface NexusGenTypes {
-  context: ctx;
+  context: any;
   inputTypes: NexusGenInputs;
   rootTypes: NexusGenRootTypes;
   inputTypeShapes: NexusGenInputs & NexusGenEnums & NexusGenScalars;

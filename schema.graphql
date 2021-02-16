@@ -308,6 +308,7 @@ input PetWhereUniqueInput {
 type Query {
   pet(where: PetWhereUniqueInput!): Pet
   pets(after: PetWhereUniqueInput, before: PetWhereUniqueInput, first: Int, last: Int, orderBy: [PetOrderByInput!], where: PetWhereInput): [Pet!]!
+  user(where: UserWhereUniqueInput!): User
 }
 
 enum QueryMode {

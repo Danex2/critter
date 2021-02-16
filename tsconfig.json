@@ -11,6 +11,7 @@
       "@/components/*": [
         "components/*"
       ],
+      "@/apollo/*":["src/generated/apollo/*"]
     },
     "allowJs": true,
     "skipLibCheck": true,

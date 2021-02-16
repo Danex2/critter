@@ -1,4 +1,4 @@
-import { objectType } from "nexus";
+import { extendType, objectType } from "nexus";
 
 export const User = objectType({
   name: "User",
@@ -9,3 +9,11 @@ export const User = objectType({
     t.model.pet();
   },
 });
+
+
+export const UserQuery = extendType({
+  type: "Query",
+  definition(t) {
+    t.crud.user()
+  },
+})

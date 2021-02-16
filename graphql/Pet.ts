@@ -18,7 +18,7 @@ export const Pet = objectType({
   },
 });
 
-export const Query = extendType({
+export const PetQuery = extendType({
   type: "Query",
   definition(t) {
     t.crud.pet()
