@@ -83,7 +83,7 @@ export default function Edit() {
   const [location, setLocation] = useState<{
     address: string;
     coords: [number, number];
-  }>({ address: "", coords: [1, 1] });
+  }>({ address: "Toronto, Ontario, Canada", coords: [-79.3849, 43.6529] });
 
   const { data: petData, loading } = useQuery<GetUserPet, GetUserPetVariables>(
     USER_PET,
@@ -217,7 +217,6 @@ export default function Edit() {
             </FormControl>
             <FormControl id="lastKnownLocation" isRequired>
               <FormLabel>Last known location</FormLabel>
-
               <SearchBox
                 token={process.env.NEXT_PUBLIC_MAPBOX_TOKEN}
                 callback={({ location }) => {
@@ -226,6 +225,7 @@ export default function Edit() {
                     coords: [location.center[0], location.center[1]],
                   });
                 }}
+                query="Toronto, Ontario, Canada"
                 country="CA"
                 selectColor="#1A365D"
               />

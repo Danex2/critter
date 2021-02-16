@@ -19,39 +19,37 @@ import { useSession } from "next-auth/client";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import SearchBox from "@nulfrost/react-mapbox-search";
-import {useState} from "react"
+import { useState } from "react";
 
 // Add text showing how many images were selected for upload
+// Default value warnings
 
 const CREATE_PET = gql`
- mutation CreateOnePet(
-  $name: String!
-  $description: String!
-  $breed: String!
-  $city: String!
-  $address: String!
-  $location: [Float!]
-  $phoneNumber: String!
-  $id: Int!
-) {
-  createOnePet(
-    data: {
-      name: $name
-      description: $description
-      breed: $breed
-      city: $city
-      phoneNumber: $phoneNumber
-      address: $address
-      location: {
-        set: $location
-      }
-      user: { connect: { id: $id } }
-    }
+  mutation CreateOnePet(
+    $name: String!
+    $description: String!
+    $breed: String!
+    $city: String!
+    $address: String!
+    $location: [Float!]
+    $phoneNumber: String!
+    $id: Int!
   ) {
-    id
+    createOnePet(
+      data: {
+        name: $name
+        description: $description
+        breed: $breed
+        city: $city
+        phoneNumber: $phoneNumber
+        address: $address
+        location: { set: $location }
+        user: { connect: { id: $id } }
+      }
+    ) {
+      id
+    }
   }
-}
-
 `;
 
 export default function Create() {
@@ -60,7 +58,10 @@ export default function Create() {
   const toast = useToast();
   const [session] = useSession();
   const [createPet] = useMutation(CREATE_PET);
-  const [location, setLocation] = useState<{address: string, coords: [number, number]}>({address: "", coords: [1, 1]})
+  const [location, setLocation] = useState<{
+    address: string;
+    coords: [number, number];
+  }>({ address: "", coords: [-79.3849, 43.6529] });
 
   return (
     <Layout title="Create">
@@ -181,7 +182,10 @@ export default function Create() {
               <SearchBox
                 token={process.env.NEXT_PUBLIC_MAPBOX_TOKEN}
                 callback={({ location, event }) => {
-                  setLocation({address: location.place_name, coords: [location.center[0],location.center[1]]})
+                  setLocation({
+                    address: location.place_name,
+                    coords: [location.center[0], location.center[1]],
+                  });
                 }}
                 country="CA"
                 selectColor="#1A365D"

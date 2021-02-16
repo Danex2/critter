@@ -13,16 +13,23 @@ import {
   useDisclosure,
   Stack,
   Icon,
+  Image,
+  List,
+  ListItem,
 } from "@chakra-ui/react";
 import Link from "next/link";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { BiDoorOpen, BiSearchAlt2 } from "react-icons/bi";
 import { AiOutlineQuestionCircle } from "react-icons/ai";
+import { signOut, useSession } from "next-auth/client";
+import { BiChevronDown } from "react-icons/bi";
 
 export default function Navbar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef();
+  const [session] = useSession();
+  const [dropdownOpen, setDropdownOpen] = useState(false);
   return (
     <>
       <Box as="nav" h="5rem" borderBottom="1px solid #E2E8F0">
@@ -50,56 +57,140 @@ export default function Navbar() {
               </Text>
             </Text>
           </ChakraLink>
-          <HStack display={{ base: "none", lg: "block" }} spacing={10}>
-            <ChakraLink as={Link} href="/about">
-              <Text
-                as="a"
-                fontWeight="bold"
-                cursor="pointer"
-                color="gray.500"
-                borderRadius="5px"
-                transition="all 0.5s"
-                _hover={{
-                  color: "blue.700",
-                }}
+          {(session?.user as any)?.id ? (
+            <Box position="relative" display={{ base: "none", lg: "block" }}>
+              <Box
+                as="button"
+                display="flex"
+                alignItems="center"
+                onClick={() => setDropdownOpen(!dropdownOpen)}
               >
-                About
-              </Text>
-            </ChakraLink>
-            <ChakraLink as={Link} href="/">
-              <Text
-                as="a"
-                fontWeight="bold"
-                cursor="pointer"
-                color="gray.500"
-                borderRadius="5px"
-                transition="all 0.5s"
-                _hover={{
-                  color: "blue.700",
-                }}
+                <Image
+                  borderRadius="full"
+                  boxSize="30px"
+                  src={session.user.image}
+                  alt={`${session.user.name}'s profile picture`}
+                />
+                <Icon as={BiChevronDown} w={7} h={7} ml={2} />
+              </Box>
+              <Box
+                position="absolute"
+                right="-50px"
+                top="40px"
+                bg="white"
+                boxShadow="lg"
+                borderRadius={4}
+                border="1px solid #ececee"
+                zIndex={1000}
+                display={dropdownOpen ? "block" : "none"}
               >
-                Listings
-              </Text>
-            </ChakraLink>
-            <ChakraLink as={Link} href="/login">
-              <Text
-                as="a"
-                fontWeight="bold"
-                bg="blue.900"
-                color="white"
-                px={30}
-                py={2}
-                cursor="pointer"
-                transition="all 0.5s"
-                borderRadius="5px"
-                _hover={{
-                  bg: "blue.700",
-                }}
-              >
-                Login
-              </Text>
-            </ChakraLink>
-          </HStack>
+                <List w={240} px={2} py={3}>
+                  <Stack>
+                    {[
+                      { name: "Create Ad", route: "/create" },
+                      { name: "Edit Ad", route: "/edit" },
+                      { name: "Listings", route: "/" },
+                      { name: "About", route: "/about" },
+                    ].map(({ name, route }) => (
+                      <ListItem>
+                        <ChakraLink as={Link} href={route}>
+                          <Text
+                            as="a"
+                            _hover={{
+                              bg: "blue.200",
+                              color: "blue.800",
+                            }}
+                            fontWeight="600"
+                            transition="0.3s"
+                            color="gray.800"
+                            px={2}
+                            py={1}
+                            borderRadius={4}
+                            fontSize="lg"
+                            display="block"
+                            cursor="pointer"
+                          >
+                            {name}
+                          </Text>
+                        </ChakraLink>
+                      </ListItem>
+                    ))}
+                    <ListItem onClick={() => signOut()}>
+                      <Text
+                        as="a"
+                        _hover={{
+                          bg: "blue.200",
+                          color: "blue.800",
+                        }}
+                        fontWeight="600"
+                        transition="0.3s"
+                        color="gray.800"
+                        px={2}
+                        py={1}
+                        borderRadius={4}
+                        fontSize="lg"
+                        display="block"
+                        cursor="pointer"
+                      >
+                        Logout
+                      </Text>
+                    </ListItem>
+                  </Stack>
+                </List>
+              </Box>
+            </Box>
+          ) : (
+            <HStack display={{ base: "none", lg: "block" }} spacing={10}>
+              <ChakraLink as={Link} href="/about">
+                <Text
+                  as="a"
+                  fontWeight="bold"
+                  cursor="pointer"
+                  color="gray.500"
+                  borderRadius="5px"
+                  transition="all 0.5s"
+                  _hover={{
+                    color: "blue.700",
+                  }}
+                >
+                  About
+                </Text>
+              </ChakraLink>
+              <ChakraLink as={Link} href="/">
+                <Text
+                  as="a"
+                  fontWeight="bold"
+                  cursor="pointer"
+                  color="gray.500"
+                  borderRadius="5px"
+                  transition="all 0.5s"
+                  _hover={{
+                    color: "blue.700",
+                  }}
+                >
+                  Listings
+                </Text>
+              </ChakraLink>
+              <ChakraLink as={Link} href="/login">
+                <Text
+                  as="a"
+                  fontWeight="bold"
+                  bg="blue.900"
+                  color="white"
+                  px={30}
+                  py={2}
+                  cursor="pointer"
+                  transition="all 0.5s"
+                  borderRadius="5px"
+                  _hover={{
+                    bg: "blue.700",
+                  }}
+                >
+                  Login
+                </Text>
+              </ChakraLink>
+            </HStack>
+          )}
           <Box display={{ base: "block", lg: "none" }}>
             <IconButton
               aria-label="Open menu for more options"
