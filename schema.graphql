@@ -2,15 +2,6 @@
 ### Do not make changes to this file directly
 
 
-type Cities {
-  id: Int!
-  name: String!
-}
-
-input CitiesWhereUniqueInput {
-  id: Int
-}
-
 scalar DateTime
 
 input DateTimeFieldUpdateOperationsInput {
@@ -238,7 +229,6 @@ input NullableStringFieldUpdateOperationsInput {
 type Pet {
   address: String!
   breed: String!
-  city: String!
   createdAt: DateTime!
   description: String!
   id: String!
@@ -253,7 +243,6 @@ type Pet {
 input PetCreateInput {
   address: String!
   breed: String!
-  city: String!
   createdAt: DateTime
   description: String!
   id: String
@@ -272,7 +261,6 @@ input PetCreatelocationInput {
 input PetOrderByInput {
   address: SortOrder
   breed: SortOrder
-  city: SortOrder
   createdAt: SortOrder
   description: SortOrder
   id: SortOrder
@@ -287,7 +275,6 @@ input PetOrderByInput {
 input PetUpdateInput {
   address: StringFieldUpdateOperationsInput
   breed: StringFieldUpdateOperationsInput
-  city: StringFieldUpdateOperationsInput
   createdAt: DateTimeFieldUpdateOperationsInput
   description: StringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
@@ -309,7 +296,6 @@ input PetWhereInput {
   OR: [PetWhereInput!]
   address: StringFilter
   breed: StringFilter
-  city: StringFilter
   createdAt: DateTimeFilter
   description: StringFilter
   id: StringFilter
@@ -327,7 +313,6 @@ input PetWhereUniqueInput {
 }
 
 type Query {
-  cities(after: CitiesWhereUniqueInput, before: CitiesWhereUniqueInput, first: Int, last: Int): [Cities!]!
   pet(where: PetWhereUniqueInput!): Pet
   pets(after: PetWhereUniqueInput, before: PetWhereUniqueInput, first: Int, last: Int, orderBy: [PetOrderByInput!], where: PetWhereInput): [Pet!]!
   user(where: UserWhereUniqueInput!): User

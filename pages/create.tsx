@@ -1,5 +1,5 @@
 import Layout from "@/components/Layout";
-import { useMutation, gql } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import {
   Box,
   Button,
@@ -10,12 +10,11 @@ import {
   FormLabel,
   Grid,
   Input,
-  Select,
   Text,
   Textarea,
   useToast,
 } from "@chakra-ui/react";
-import { useSession } from "next-auth/client";
+import { getSession, useSession } from "next-auth/client";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import SearchBox from "@nulfrost/react-mapbox-search";
@@ -23,7 +22,6 @@ import { useState } from "react";
 import { CREATE_PET } from "apollo/Mutations";
 
 // Add text showing how many images were selected for upload
-// Default value warnings
 
 export default function Create() {
   const router = useRouter();
@@ -231,4 +229,20 @@ export default function Create() {
       </Box>
     </Layout>
   );
+}
+
+export async function getServerSideProps(context) {
+  const user = await getSession(context);
+
+  if (!user) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
+  return {
+    props: {},
+  };
 }

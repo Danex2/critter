@@ -19,9 +19,6 @@ declare global {
 }
 
 export interface NexusGenInputs {
-  CitiesWhereUniqueInput: { // input type
-    id?: number | null; // Int
-  }
   DateTimeFieldUpdateOperationsInput: { // input type
     set?: NexusGenScalars['DateTime'] | null; // DateTime
   }
@@ -208,7 +205,6 @@ export interface NexusGenInputs {
   PetCreateInput: { // input type
     address: string; // String!
     breed: string; // String!
-    city: string; // String!
     createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
     description: string; // String!
     id?: string | null; // String
@@ -225,7 +221,6 @@ export interface NexusGenInputs {
   PetOrderByInput: { // input type
     address?: NexusGenEnums['SortOrder'] | null; // SortOrder
     breed?: NexusGenEnums['SortOrder'] | null; // SortOrder
-    city?: NexusGenEnums['SortOrder'] | null; // SortOrder
     createdAt?: NexusGenEnums['SortOrder'] | null; // SortOrder
     description?: NexusGenEnums['SortOrder'] | null; // SortOrder
     id?: NexusGenEnums['SortOrder'] | null; // SortOrder
@@ -239,7 +234,6 @@ export interface NexusGenInputs {
   PetUpdateInput: { // input type
     address?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
     breed?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
-    city?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
     createdAt?: NexusGenInputs['DateTimeFieldUpdateOperationsInput'] | null; // DateTimeFieldUpdateOperationsInput
     description?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
     id?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
@@ -259,7 +253,6 @@ export interface NexusGenInputs {
     OR?: NexusGenInputs['PetWhereInput'][] | null; // [PetWhereInput!]
     address?: NexusGenInputs['StringFilter'] | null; // StringFilter
     breed?: NexusGenInputs['StringFilter'] | null; // StringFilter
-    city?: NexusGenInputs['StringFilter'] | null; // StringFilter
     createdAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
     description?: NexusGenInputs['StringFilter'] | null; // StringFilter
     id?: NexusGenInputs['StringFilter'] | null; // StringFilter
@@ -384,10 +377,6 @@ export interface NexusGenScalars {
 }
 
 export interface NexusGenObjects {
-  Cities: { // root type
-    id: number; // Int!
-    name: string; // String!
-  }
   Image: { // root type
     id: string; // String!
     url: string; // String!
@@ -396,7 +385,6 @@ export interface NexusGenObjects {
   Pet: { // root type
     address: string; // String!
     breed: string; // String!
-    city: string; // String!
     createdAt: NexusGenScalars['DateTime']; // DateTime!
     description: string; // String!
     id: string; // String!
@@ -424,10 +412,6 @@ export type NexusGenRootTypes = NexusGenObjects
 export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars & NexusGenEnums
 
 export interface NexusGenFieldTypes {
-  Cities: { // field return type
-    id: number; // Int!
-    name: string; // String!
-  }
   Image: { // field return type
     Pet: NexusGenRootTypes['Pet'] | null; // Pet
     id: string; // String!
@@ -441,7 +425,6 @@ export interface NexusGenFieldTypes {
   Pet: { // field return type
     address: string; // String!
     breed: string; // String!
-    city: string; // String!
     createdAt: NexusGenScalars['DateTime']; // DateTime!
     description: string; // String!
     id: string; // String!
@@ -453,7 +436,6 @@ export interface NexusGenFieldTypes {
     user: NexusGenRootTypes['User']; // User!
   }
   Query: { // field return type
-    cities: NexusGenRootTypes['Cities'][]; // [Cities!]!
     pet: NexusGenRootTypes['Pet'] | null; // Pet
     pets: NexusGenRootTypes['Pet'][]; // [Pet!]!
     user: NexusGenRootTypes['User'] | null; // User
@@ -467,10 +449,6 @@ export interface NexusGenFieldTypes {
 }
 
 export interface NexusGenFieldTypeNames {
-  Cities: { // field return type name
-    id: 'Int'
-    name: 'String'
-  }
   Image: { // field return type name
     Pet: 'Pet'
     id: 'String'
@@ -484,7 +462,6 @@ export interface NexusGenFieldTypeNames {
   Pet: { // field return type name
     address: 'String'
     breed: 'String'
-    city: 'String'
     createdAt: 'DateTime'
     description: 'String'
     id: 'String'
@@ -496,7 +473,6 @@ export interface NexusGenFieldTypeNames {
     user: 'User'
   }
   Query: { // field return type name
-    cities: 'Cities'
     pet: 'Pet'
     pets: 'Pet'
     user: 'User'
@@ -531,12 +507,6 @@ export interface NexusGenArgTypes {
     }
   }
   Query: {
-    cities: { // args
-      after?: NexusGenInputs['CitiesWhereUniqueInput'] | null; // CitiesWhereUniqueInput
-      before?: NexusGenInputs['CitiesWhereUniqueInput'] | null; // CitiesWhereUniqueInput
-      first?: number | null; // Int
-      last?: number | null; // Int
-    }
     pet: { // args
       where: NexusGenInputs['PetWhereUniqueInput']; // PetWhereUniqueInput!
     }

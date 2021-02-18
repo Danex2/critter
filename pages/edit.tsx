@@ -1,5 +1,5 @@
 import Layout from "@/components/Layout";
-import { gql, useMutation, useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import {
   AlertDialog,
   AlertDialogBody,
@@ -16,43 +16,39 @@ import {
   FormLabel,
   Grid,
   Input,
-  Select,
   Text,
   Textarea,
   useToast,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import SearchBox from "@nulfrost/react-mapbox-search";
-import { useSession } from "next-auth/client";
-import { GetUserPet, GetUserPetVariables } from "@/apollo/GetUserPet";
+import { getSession, useSession } from "next-auth/client";
 import { UpdateOnePet, UpdateOnePetVariables } from "@/apollo/UpdateOnePet";
 import { DeleteOnePet, DeleteOnePetVariables } from "@/apollo/DeleteOnePet";
-import { GetCites } from "@/apollo/GetCites";
 import { useForm } from "react-hook-form";
 import { useRef, useState } from "react";
-import { USER_PET, GET_CITIES } from "apollo/Queries";
 import { UPDATE_PET, DELETE_PET } from "apollo/Mutations";
+import { PrismaClient } from "@prisma/client";
 
 // Add text showing how many images were selected for upload
 
-export default function Edit() {
+export default function Edit({ petData }) {
   const router = useRouter();
-  const [session] = useSession();
-  const { register, handleSubmit, errors, trigger } = useForm();
+  const pet = JSON.parse(petData);
+
+  const { register, handleSubmit, errors, trigger } = useForm({
+    defaultValues: {
+      phoneNumber: pet.phoneNumber,
+      petName: pet.name,
+      breed: pet.breed,
+      description: pet.description,
+    },
+  });
   const toast = useToast();
   const [location, setLocation] = useState<{
     address: string;
     coords: [number, number];
   }>({ address: "Toronto, Ontario, Canada", coords: [-79.3849, 43.6529] });
-
-  const { data: petData, loading } = useQuery<GetUserPet, GetUserPetVariables>(
-    USER_PET,
-    {
-      variables: { userId: (session?.user as any)?.id },
-    }
-  );
-
-  const { data: cityData } = useQuery<GetCites>(GET_CITIES);
 
   const [updateOnePet] = useMutation<UpdateOnePet, UpdateOnePetVariables>(
     UPDATE_PET
@@ -69,7 +65,7 @@ export default function Edit() {
   return (
     <Layout title="Edit">
       <Box maxW="1000px" mx="auto" mt={104} pb={104} px={{ base: 5, lg: 0 }}>
-        {!petData?.user.pet ? (
+        {!pet ? (
           <Text as="h1" textAlign="center">
             You do not have any active posts.
           </Text>
@@ -94,9 +90,8 @@ export default function Edit() {
                 const {
                   petName,
                   breed,
-                  images,
+
                   phoneNumber,
-                  city,
                   description,
                 } = data;
 
@@ -106,10 +101,9 @@ export default function Edit() {
                     breed,
                     description,
                     phoneNumber,
-                    city,
                     location: location.coords,
                     address: location.address,
-                    petId: petData?.user?.pet?.id,
+                    petId: pet.id,
                   },
                 })
                   .then(() => {
@@ -144,7 +138,6 @@ export default function Edit() {
                   <FormLabel>Name</FormLabel>
                   <Input
                     type="text"
-                    value={petData?.user?.pet?.name}
                     ref={register({ maxLength: 20 })}
                     name="petName"
                   />
@@ -156,7 +149,6 @@ export default function Edit() {
                     type="text"
                     ref={register({ maxLength: 30 })}
                     name="breed"
-                    value={petData?.user?.pet?.breed}
                   />
                 </FormControl>
                 <FormControl id="images" mt={3}>
@@ -213,7 +205,6 @@ export default function Edit() {
                   rows={10}
                   ref={register({ maxLength: 500 })}
                   name="description"
-                  value={petData?.user?.pet?.description}
                 />
               </FormControl>
               <Divider marginBottom="16px" />
@@ -243,7 +234,6 @@ export default function Edit() {
                   })}
                   onChange={() => trigger("phoneNumber")}
                   name="phoneNumber"
-                  value={petData?.user?.pet?.phoneNumber}
                 />
                 <FormErrorMessage>
                   {errors.phoneNumber?.message}
@@ -285,7 +275,7 @@ export default function Edit() {
                           colorScheme="red"
                           onClick={() => {
                             deleteOnePet({
-                              variables: { petId: petData?.user?.pet?.id },
+                              variables: { petId: pet?.id },
                             }).then(() => router.push("/"));
                           }}
                           ml={3}
@@ -314,4 +304,33 @@ export default function Edit() {
       </Box>
     </Layout>
   );
+}
+
+export async function getServerSideProps(context) {
+  const session = await getSession(context);
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
+
+  const prisma = new PrismaClient();
+
+  const petData = await prisma.user
+    .findFirst({
+      where: {
+        id: (session?.user as any)?.id,
+      },
+    })
+    .pet();
+
+  return {
+    props: {
+      petData: JSON.stringify(petData),
+    },
+  };
 }

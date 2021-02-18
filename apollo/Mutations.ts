@@ -5,7 +5,6 @@ export const UPDATE_PET = gql`
     $name: String!
     $description: String!
     $breed: String!
-    $city: String!
     $address: String!
     $location: [Float!]
     $phoneNumber: String!
@@ -17,7 +16,6 @@ export const UPDATE_PET = gql`
         name: { set: $name }
         description: { set: $description }
         breed: { set: $breed }
-        city: { set: $city }
         phoneNumber: { set: $phoneNumber }
         address: { set: $address }
         location: { set: $location }
@@ -33,7 +31,6 @@ export const CREATE_PET = gql`
     $name: String!
     $description: String!
     $breed: String!
-    $city: String!
     $address: String!
     $location: [Float!]
     $phoneNumber: String!
@@ -44,7 +41,6 @@ export const CREATE_PET = gql`
         name: $name
         description: $description
         breed: $breed
-        city: $city
         phoneNumber: $phoneNumber
         address: $address
         location: { set: $location }

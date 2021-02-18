@@ -20,7 +20,6 @@ export interface UpdateOnePetVariables {
   name: string;
   description: string;
   breed: string;
-  city: string;
   address: string;
   location?: number[] | null;
   phoneNumber: string;

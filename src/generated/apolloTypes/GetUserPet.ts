@@ -12,7 +12,6 @@ export interface GetUserPet_user_pet {
   id: string;
   name: string;
   breed: string;
-  city: string;
   address: string;
   description: string;
   phoneNumber: string;

@@ -92,10 +92,3 @@ model Image {
 
   @@map(name: "images")
 }
-
-model Cities {
-  id   Int    @id @default(autoincrement())
-  name String
-
-  @@map(name: "cities")
-}
