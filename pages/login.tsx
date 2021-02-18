@@ -39,7 +39,11 @@ export default function Login() {
               bg: "gray.800",
             }}
             textAlign="left"
-            onClick={() => signIn("github")}
+            onClick={() =>
+              signIn("github", {
+                callbackUrl: "http://localhost:3000/",
+              })
+            }
           >
             Login with Github
           </Button>

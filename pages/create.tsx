@@ -20,37 +20,10 @@ import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import SearchBox from "@nulfrost/react-mapbox-search";
 import { useState } from "react";
+import { CREATE_PET } from "apollo/Mutations";
 
 // Add text showing how many images were selected for upload
 // Default value warnings
-
-const CREATE_PET = gql`
-  mutation CreateOnePet(
-    $name: String!
-    $description: String!
-    $breed: String!
-    $city: String!
-    $address: String!
-    $location: [Float!]
-    $phoneNumber: String!
-    $id: Int!
-  ) {
-    createOnePet(
-      data: {
-        name: $name
-        description: $description
-        breed: $breed
-        city: $city
-        phoneNumber: $phoneNumber
-        address: $address
-        location: { set: $location }
-        user: { connect: { id: $id } }
-      }
-    ) {
-      id
-    }
-  }
-`;
 
 export default function Create() {
   const router = useRouter();
@@ -168,13 +141,6 @@ export default function Create() {
                 ref={register}
                 name="images"
               />
-            </FormControl>
-            <FormControl id="city" isRequired>
-              <FormLabel>City</FormLabel>
-              <Select placeholder="Select option" ref={register} name="city">
-                <option value="option1">Etobicoke</option>
-                <option value="option3">Brampton</option>
-              </Select>
             </FormControl>
             <FormControl id="lastKnownLocation" isRequired>
               <FormLabel>Last known location</FormLabel>

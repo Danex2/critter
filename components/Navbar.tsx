@@ -50,6 +50,7 @@ export default function Navbar() {
               cursor="pointer"
               color="blue.700"
               textTransform="uppercase"
+              data-cy="logo"
             >
               Pet
               <Text as="span" color="blue.400">
@@ -92,7 +93,7 @@ export default function Navbar() {
                       { name: "Listings", route: "/" },
                       { name: "About", route: "/about" },
                     ].map(({ name, route }) => (
-                      <ListItem>
+                      <ListItem key={name}>
                         <ChakraLink as={Link} href={route}>
                           <Text
                             as="a"
@@ -100,13 +101,11 @@ export default function Navbar() {
                               bg: "blue.200",
                               color: "blue.800",
                             }}
-                            fontWeight="600"
                             transition="0.3s"
                             color="gray.800"
                             px={2}
                             py={1}
                             borderRadius={4}
-                            fontSize="lg"
                             display="block"
                             cursor="pointer"
                           >
@@ -122,13 +121,11 @@ export default function Navbar() {
                           bg: "blue.200",
                           color: "blue.800",
                         }}
-                        fontWeight="600"
                         transition="0.3s"
                         color="gray.800"
                         px={2}
                         py={1}
                         borderRadius={4}
-                        fontSize="lg"
                         display="block"
                         cursor="pointer"
                       >

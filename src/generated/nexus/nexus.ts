@@ -19,6 +19,9 @@ declare global {
 }
 
 export interface NexusGenInputs {
+  CitiesWhereUniqueInput: { // input type
+    id?: number | null; // Int
+  }
   DateTimeFieldUpdateOperationsInput: { // input type
     set?: NexusGenScalars['DateTime'] | null; // DateTime
   }
@@ -49,10 +52,19 @@ export interface NexusGenInputs {
     hasSome?: number[] | null; // [Float!]
     isEmpty?: boolean | null; // Boolean
   }
+  ImageCreateManyPetInput: { // input type
+    id?: string | null; // String
+    url: string; // String!
+  }
+  ImageCreateManyPetInputEnvelope: { // input type
+    data?: NexusGenInputs['ImageCreateManyPetInput'][] | null; // [ImageCreateManyPetInput!]
+    skipDuplicates?: boolean | null; // Boolean
+  }
   ImageCreateNestedManyWithoutPetInput: { // input type
     connect?: NexusGenInputs['ImageWhereUniqueInput'][] | null; // [ImageWhereUniqueInput!]
     connectOrCreate?: NexusGenInputs['ImageCreateOrConnectWithoutPetInput'][] | null; // [ImageCreateOrConnectWithoutPetInput!]
     create?: NexusGenInputs['ImageCreateWithoutPetInput'][] | null; // [ImageCreateWithoutPetInput!]
+    createMany?: NexusGenInputs['ImageCreateManyPetInputEnvelope'] | null; // ImageCreateManyPetInputEnvelope
   }
   ImageCreateOrConnectWithoutPetInput: { // input type
     create: NexusGenInputs['ImageCreateWithoutPetInput']; // ImageCreateWithoutPetInput!
@@ -87,6 +99,7 @@ export interface NexusGenInputs {
     connect?: NexusGenInputs['ImageWhereUniqueInput'][] | null; // [ImageWhereUniqueInput!]
     connectOrCreate?: NexusGenInputs['ImageCreateOrConnectWithoutPetInput'][] | null; // [ImageCreateOrConnectWithoutPetInput!]
     create?: NexusGenInputs['ImageCreateWithoutPetInput'][] | null; // [ImageCreateWithoutPetInput!]
+    createMany?: NexusGenInputs['ImageCreateManyPetInputEnvelope'] | null; // ImageCreateManyPetInputEnvelope
     delete?: NexusGenInputs['ImageWhereUniqueInput'][] | null; // [ImageWhereUniqueInput!]
     deleteMany?: NexusGenInputs['ImageScalarWhereInput'][] | null; // [ImageScalarWhereInput!]
     disconnect?: NexusGenInputs['ImageWhereUniqueInput'][] | null; // [ImageWhereUniqueInput!]
@@ -371,6 +384,10 @@ export interface NexusGenScalars {
 }
 
 export interface NexusGenObjects {
+  Cities: { // root type
+    id: number; // Int!
+    name: string; // String!
+  }
   Image: { // root type
     id: string; // String!
     url: string; // String!
@@ -407,6 +424,10 @@ export type NexusGenRootTypes = NexusGenObjects
 export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars & NexusGenEnums
 
 export interface NexusGenFieldTypes {
+  Cities: { // field return type
+    id: number; // Int!
+    name: string; // String!
+  }
   Image: { // field return type
     Pet: NexusGenRootTypes['Pet'] | null; // Pet
     id: string; // String!
@@ -432,6 +453,7 @@ export interface NexusGenFieldTypes {
     user: NexusGenRootTypes['User']; // User!
   }
   Query: { // field return type
+    cities: NexusGenRootTypes['Cities'][]; // [Cities!]!
     pet: NexusGenRootTypes['Pet'] | null; // Pet
     pets: NexusGenRootTypes['Pet'][]; // [Pet!]!
     user: NexusGenRootTypes['User'] | null; // User
@@ -445,6 +467,10 @@ export interface NexusGenFieldTypes {
 }
 
 export interface NexusGenFieldTypeNames {
+  Cities: { // field return type name
+    id: 'Int'
+    name: 'String'
+  }
   Image: { // field return type name
     Pet: 'Pet'
     id: 'String'
@@ -470,6 +496,7 @@ export interface NexusGenFieldTypeNames {
     user: 'User'
   }
   Query: { // field return type name
+    cities: 'Cities'
     pet: 'Pet'
     pets: 'Pet'
     user: 'User'
@@ -504,6 +531,12 @@ export interface NexusGenArgTypes {
     }
   }
   Query: {
+    cities: { // args
+      after?: NexusGenInputs['CitiesWhereUniqueInput'] | null; // CitiesWhereUniqueInput
+      before?: NexusGenInputs['CitiesWhereUniqueInput'] | null; // CitiesWhereUniqueInput
+      first?: number | null; // Int
+      last?: number | null; // Int
+    }
     pet: { // args
       where: NexusGenInputs['PetWhereUniqueInput']; // PetWhereUniqueInput!
     }

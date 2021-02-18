@@ -2,6 +2,15 @@
 ### Do not make changes to this file directly
 
 
+type Cities {
+  id: Int!
+  name: String!
+}
+
+input CitiesWhereUniqueInput {
+  id: Int
+}
+
 scalar DateTime
 
 input DateTimeFieldUpdateOperationsInput {
@@ -44,10 +53,21 @@ type Image {
   url: String!
 }
 
+input ImageCreateManyPetInput {
+  id: String
+  url: String!
+}
+
+input ImageCreateManyPetInputEnvelope {
+  data: [ImageCreateManyPetInput!]
+  skipDuplicates: Boolean
+}
+
 input ImageCreateNestedManyWithoutPetInput {
   connect: [ImageWhereUniqueInput!]
   connectOrCreate: [ImageCreateOrConnectWithoutPetInput!]
   create: [ImageCreateWithoutPetInput!]
+  createMany: ImageCreateManyPetInputEnvelope
 }
 
 input ImageCreateOrConnectWithoutPetInput {
@@ -89,6 +109,7 @@ input ImageUpdateManyWithoutPetInput {
   connect: [ImageWhereUniqueInput!]
   connectOrCreate: [ImageCreateOrConnectWithoutPetInput!]
   create: [ImageCreateWithoutPetInput!]
+  createMany: ImageCreateManyPetInputEnvelope
   delete: [ImageWhereUniqueInput!]
   deleteMany: [ImageScalarWhereInput!]
   disconnect: [ImageWhereUniqueInput!]
@@ -306,6 +327,7 @@ input PetWhereUniqueInput {
 }
 
 type Query {
+  cities(after: CitiesWhereUniqueInput, before: CitiesWhereUniqueInput, first: Int, last: Int): [Cities!]!
   pet(where: PetWhereUniqueInput!): Pet
   pets(after: PetWhereUniqueInput, before: PetWhereUniqueInput, first: Int, last: Int, orderBy: [PetOrderByInput!], where: PetWhereInput): [Pet!]!
   user(where: UserWhereUniqueInput!): User
